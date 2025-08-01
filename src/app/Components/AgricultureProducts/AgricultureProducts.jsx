@@ -73,8 +73,8 @@ const AgricultureProduct = () => {
         slidesPerView={1}
         loop={true}
         navigation={{
-          prevEl: '.swiper-button-prev-custom',
-          nextEl: '.swiper-button-next-custom',
+          prevEl: '.swiper-button-prev',
+          nextEl: '.swiper-button-next',
         }}
         breakpoints={{
           640: { slidesPerView: 2, spaceBetween: 20 },

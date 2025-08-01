@@ -31,7 +31,7 @@ const Banner = () => {
   ];
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto my-8">
+    <div className="relative w-full mx-auto mb-8">
       <Swiper
         modules={[Navigation, Autoplay]}
         navigation={{
@@ -46,8 +46,8 @@ const Banner = () => {
         className="w-full"
       >
         {slideData.map((slide, index) => (
-          <SwiperSlide key={index} className="p-4">
-            <div className="flex flex-col md:flex-row items-center bg-[#F2F4F6] dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm">
+          <SwiperSlide key={index} className="">
+            <div className="flex flex-col md:flex-row items-center bg-[#F2F4F6] dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm md:max-h-[75vh]">
               <div className="w-full md:w-1/2 p-4">
                 <img
                   src={slide.image}
