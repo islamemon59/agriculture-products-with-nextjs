@@ -1,15 +1,20 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import SocialLoginButton from "../Components/SocialLoginButton/SocialLoginButton";
-
-const LoginForm = () => {
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
+import SocialLoginButton from "../SocialLoginButton/SocialLoginButton";
+const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login form submitted!");
+    console.log("Register form submitted!");
   };
 
   const togglePasswordVisibility = () => {
@@ -20,16 +25,16 @@ const LoginForm = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Login
+          Register
         </h2>
         <form onSubmit={handleSubmit}>
-          {/* Email/Username Field */}
+          {/* Full Name Field */}
           <div className="mb-5">
             <label
-              htmlFor="email"
+              htmlFor="fullName"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              Email or Username
+              Full Name
             </label>
             <div className="relative">
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -37,6 +42,29 @@ const LoginForm = () => {
               </span>
               <input
                 type="text"
+                id="fullName"
+                name="fullName"
+                placeholder="John Doe"
+                className="shadow appearance-none border rounded w-full py-2 px-10 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              />
+            </div>
+          </div>
+
+          {/* Email Field */}
+          <div className="mb-5">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Email Address
+            </label>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
+                <FaEnvelope className="text-gray-400" />
+              </span>
+              <input
+                type="email"
                 id="email"
                 name="email"
                 placeholder="you@example.com"
@@ -79,31 +107,13 @@ const LoginForm = () => {
             </div>
           </div>
 
-          {/* Remember Me & Forgot Password */}
-          <div className="flex items-center justify-between mb-6">
-            <label className="flex items-center text-gray-600 text-sm">
-              <input
-                type="checkbox"
-                name="rememberMe"
-                className="mr-2 leading-tight"
-              />
-              Remember me
-            </label>
-            <Link
-              href="#"
-              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-            >
-              Forgot Password?
-            </Link>
-          </div>
-
           {/* Submit Button */}
           <div className="flex items-center justify-center">
             <button
               type="submit"
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
             >
-              Login
+              Register
             </button>
           </div>
         </form>
@@ -116,16 +126,16 @@ const LoginForm = () => {
         </div>
 
         {/* Google Social Login Button */}
-        <SocialLoginButton />
 
-        {/* Link to Register */}
+        <SocialLoginButton />
+        {/* Link to Login */}
         <p className="text-center text-gray-600 text-sm mt-6">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <Link
-            href="/register"
+            href="/login"
             className="font-bold text-blue-500 hover:text-blue-800"
           >
-            Register here
+            Login here
           </Link>
         </p>
       </div>
@@ -133,4 +143,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
