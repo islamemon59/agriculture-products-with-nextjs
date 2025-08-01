@@ -1,20 +1,38 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  FaUser,
-  FaEnvelope,
-  FaLock,
-  FaEye,
-  FaEyeSlash,
-} from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import SocialLoginButton from "@/app/Components/SocialLoginButton/SocialLoginButton";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 const RegisterForm = () => {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Register form submitted!");
+    toast('Please wait')
+    const res = await fetch("http://localhost:3000/api/register", {
+      method: "POST",
+      body: JSON.stringify(form),
+    });
+    const data = await res.json();
+
+    if (data.message) {
+      Swal.fire({
+        title: "Registration Complete",
+        icon: "success",
+        draggable: true,
+      });
+      router.push("/login")
+    }
+    console.log("Register form submitted!", form, data);
   };
 
   const togglePasswordVisibility = () => {
@@ -43,7 +61,8 @@ const RegisterForm = () => {
               <input
                 type="text"
                 id="fullName"
-                name="fullName"
+                onChange={handleChange}
+                name="name"
                 placeholder="John Doe"
                 className="shadow appearance-none border rounded w-full py-2 px-10 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
@@ -67,6 +86,7 @@ const RegisterForm = () => {
                 type="email"
                 id="email"
                 name="email"
+                onChange={handleChange}
                 placeholder="you@example.com"
                 className="shadow appearance-none border rounded w-full py-2 px-10 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
@@ -90,6 +110,7 @@ const RegisterForm = () => {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
+                onChange={handleChange}
                 placeholder="********"
                 className="shadow appearance-none border rounded w-full py-2 px-10 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
