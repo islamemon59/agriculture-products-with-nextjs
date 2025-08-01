@@ -1,14 +1,22 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa"; // Example icons
+import { FaUser, FaEnvelope, FaLock, FaGoogle } from "react-icons/fa";
 
 const RegisterForm = () => {
+  // State for password visibility (assuming the user will ask for this next)
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle registration logic here (e.g., send data to an API)
     console.log("Register form submitted!");
-    // In a real app, you'd collect form data, validate passwords, and make an API call
+  };
+
+  const handleGoogleLogin = () => {
+    // In a real application, you would trigger the Google OAuth flow here.
+    // This might involve redirecting the user to a Google login page.
+    console.log("Google login button clicked!");
   };
 
   return (
@@ -77,7 +85,8 @@ const RegisterForm = () => {
                 <FaLock className="text-gray-400" />
               </span>
               <input
-                type="password"
+                // Added for future password toggle functionality
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 placeholder="********"
@@ -96,18 +105,36 @@ const RegisterForm = () => {
               Register
             </button>
           </div>
-
-          {/* Link to Login */}
-          <p className="text-center text-gray-600 text-sm mt-6">
-            Already have an account?{" "}
-            <Link
-              href="/login"
-              className="font-bold text-blue-500 hover:text-blue-800"
-            >
-              Login here
-            </Link>
-          </p>
         </form>
+
+        {/* Separator */}
+        <div className="flex items-center my-6">
+          <div className="flex-grow border-t border-gray-300"></div>
+          <span className="mx-4 text-gray-500 text-sm">Or</span>
+          <div className="flex-grow border-t border-gray-300"></div>
+        </div>
+
+        {/* Google Social Login Button */}
+        <div className="flex items-center justify-center">
+          <button
+            onClick={handleGoogleLogin}
+            className="bg-white border border-gray-300 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full flex items-center justify-center space-x-2 hover:bg-gray-50 transition duration-200"
+          >
+            <FaGoogle className="text-red-500" />
+            <span>Register with Google</span>
+          </button>
+        </div>
+
+        {/* Link to Login */}
+        <p className="text-center text-gray-600 text-sm mt-6">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="font-bold text-blue-500 hover:text-blue-800"
+          >
+            Login here
+          </Link>
+        </p>
       </div>
     </div>
   );

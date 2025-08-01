@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,6 +15,12 @@ const LoginForm = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleGoogleLogin = () => {
+    // In a real application, you would trigger the Google OAuth flow here.
+    // This might involve redirecting the user to a Google login page.
+    console.log("Google login button clicked!");
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -22,6 +28,7 @@ const LoginForm = () => {
           Login
         </h2>
         <form onSubmit={handleSubmit}>
+          {/* Email/Username Field */}
           <div className="mb-5">
             <label
               htmlFor="email"
@@ -43,6 +50,8 @@ const LoginForm = () => {
               />
             </div>
           </div>
+
+          {/* Password Field */}
           <div className="mb-5">
             <label
               htmlFor="password"
@@ -66,7 +75,6 @@ const LoginForm = () => {
                 className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                 onClick={togglePasswordVisibility}
               >
-                {/* Conditionally render the correct icon */}
                 {showPassword ? (
                   <FaEyeSlash className="text-gray-400" />
                 ) : (
@@ -76,6 +84,7 @@ const LoginForm = () => {
             </div>
           </div>
 
+          {/* Remember Me & Forgot Password */}
           <div className="flex items-center justify-between mb-6">
             <label className="flex items-center text-gray-600 text-sm">
               <input
@@ -93,6 +102,7 @@ const LoginForm = () => {
             </Link>
           </div>
 
+          {/* Submit Button */}
           <div className="flex items-center justify-center">
             <button
               type="submit"
@@ -101,17 +111,36 @@ const LoginForm = () => {
               Login
             </button>
           </div>
-
-          <p className="text-center text-gray-600 text-sm mt-6">
-            Don't have an account?{" "}
-            <Link
-              href="/register"
-              className="font-bold text-blue-500 hover:text-blue-800"
-            >
-              Register here
-            </Link>
-          </p>
         </form>
+
+        {/* Separator */}
+        <div className="flex items-center my-6">
+          <div className="flex-grow border-t border-gray-300"></div>
+          <span className="mx-4 text-gray-500 text-sm">Or</span>
+          <div className="flex-grow border-t border-gray-300"></div>
+        </div>
+
+        {/* Google Social Login Button */}
+        <div className="flex items-center justify-center">
+          <button
+            onClick={handleGoogleLogin}
+            className="bg-white border border-gray-300 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full flex items-center justify-center space-x-2 hover:bg-gray-50 transition duration-200"
+          >
+            <FaGoogle className="text-red-500" />
+            <span>Login with Google</span>
+          </button>
+        </div>
+
+        {/* Link to Register */}
+        <p className="text-center text-gray-600 text-sm mt-6">
+          Don't have an account?{" "}
+          <Link
+            href="/register"
+            className="font-bold text-blue-500 hover:text-blue-800"
+          >
+            Register here
+          </Link>
+        </p>
       </div>
     </div>
   );
