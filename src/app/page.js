@@ -6,6 +6,7 @@ import TrustedCustomer from "./Components/TrustedCustomer/TrustedCustomer";
 import OurCustomerSays from "./Components/OurCustomerSays/OurCustomerSays";
 import WhyUs from "./Components/WhyUs/WhyUs";
 import MarqueeProducts from "./Components/MarqueeProduct/MarqueeProduct";
+import Branches from "./Components/Branches/Branches";
 
 export default function Home() {
   return (
@@ -30,6 +31,9 @@ export default function Home() {
       </section>
       <section>
         <MarqueeProducts/>
+      </section>
+      <section>
+        <Branches/>
       </section>
     </div>
   );
