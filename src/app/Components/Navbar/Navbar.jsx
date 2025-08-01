@@ -4,18 +4,21 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   IoSearchOutline,
-  IoPersonOutline,
   IoCartOutline,
   IoMenu,
   IoClose,
 } from "react-icons/io5";
 import { useSession, signOut } from "next-auth/react";
-import Image from "next/image";
+import Loader from "../Loader/Loader";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const { data: session, status } = useSession();
-  console.log(session, status);
+  const user = session?.user;
+
+  if (status === "loading") return <Loader />;
 
   const navLinks = [
     { to: "/", label: "Home" },
@@ -24,54 +27,72 @@ const Navbar = () => {
     { to: "/contact", label: "Contact" },
   ];
 
-  const user = session?.user;
-
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Desktop Menu */}
+          {/* Links */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.to}
-                className="font-medium text-black dark:text-white hover:text-gray-700 dark:hover:text-gray-300 transition duration-150 ease-in-out"
+                className="font-medium text-black dark:text-white hover:text-gray-700 dark:hover:text-gray-300 transition"
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          {/* Right Section */}
+          {/* Right Side */}
           <div className="flex items-center space-x-5">
-            {/* Conditional Login/Avatar */}
+            {/* User */}
             {!user ? (
               <Link
                 href="/login"
-                className="text-black dark:text-white text-sm font-medium rounded-md transition hover:text-gray-700 dark:hover:text-gray-300 duration-150 ease-in-out"
+                className="text-black dark:text-white text-sm font-medium rounded-md hover:text-gray-700 dark:hover:text-gray-300"
               >
                 Login
               </Link>
             ) : (
-              <div className="relative group">
-                <img
-                  src={user?.image || "https://img.icons8.com/?size=50&id=23265&format=png"}
-                  alt="avatar"
-                  width={36}
-                  height={36}
-                  className="rounded-full cursor-pointer"
-                />
-                <div className="absolute hidden group-hover:block right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-md rounded-md p-3 z-50">
-                  <div className="text-sm text-black dark:text-white font-semibold">{user.name}</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-300 mb-2">{user.email}</div>
-                  <button
-                    onClick={() => signOut()}
-                    className="w-full text-left text-sm text-red-600 hover:underline"
-                  >
-                    Logout
-                  </button>
-                </div>
+              <div
+                className="relative"
+                tabIndex={0}
+                onBlur={() => setIsDropdownOpen(false)}
+              >
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center focus:outline-none"
+                >
+                  <img
+                    src={
+                      user?.image ||
+                      "https://img.icons8.com/?size=50&id=23265&format=png"
+                    }
+                    alt="Avatar"
+                    className="w-9 h-9 rounded-full"
+                  />
+                </button>
+
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white md:block hidden dark:bg-gray-800 shadow-lg rounded-md p-4 z-50">
+                    <div className="text-sm font-semibold text-black dark:text-white mb-1">
+                      {user.name}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-300 mb-3">
+                      {user.email}
+                    </div>
+                    <button
+                      onClick={() => {
+                        signOut();
+                        setIsDropdownOpen(false);
+                      }}
+                      className="w-full text-left text-sm text-red-600 hover:underline"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 
@@ -85,7 +106,7 @@ const Navbar = () => {
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Toggle */}
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -101,7 +122,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <div className="px-4 pt-2 pb-4 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
@@ -112,19 +133,22 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-          </div>
 
-          <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
+            {/* Mobile User Info */}
             {user ? (
-              <div className="px-5">
-                <div className="text-sm font-medium text-black dark:text-white">{user.name}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-300 mb-3">{user.email}</div>
+              <div className="mt-4 px-3 space-y-2 border-t border-gray-200 dark:border-gray-700 pt-3">
+                <div className="text-sm font-semibold text-black dark:text-white">
+                  {user.name}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-300">
+                  {user.email}
+                </div>
                 <button
                   onClick={() => {
-                    setIsMenuOpen(false);
                     signOut();
+                    setIsMenuOpen(false);
                   }}
-                  className="w-full text-left text-sm text-red-600 hover:underline"
+                  className="w-full text-left text-sm text-red-600 hover:underline mt-2"
                 >
                   Logout
                 </button>
