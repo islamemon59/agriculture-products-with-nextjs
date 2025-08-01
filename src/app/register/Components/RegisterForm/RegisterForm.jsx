@@ -8,7 +8,7 @@ import {
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
-import SocialLoginButton from "../SocialLoginButton/SocialLoginButton";
+import SocialLoginButton from "@/app/Components/SocialLoginButton/SocialLoginButton";
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
