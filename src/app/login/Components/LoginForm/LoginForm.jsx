@@ -3,12 +3,40 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import SocialLoginButton from "@/app/Components/SocialLoginButton/SocialLoginButton";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [form, setForm] = useState({ email: "", password: "" });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    toast("Please wait")
+
+    const res = await signIn("credentials", {
+      email: form.email,
+      password: form.password,
+      redirect: false,
+    });
+
+    if (res.ok) {
+      Swal.fire({
+        title: "Successfully login",
+        icon: "success",
+        draggable: true,
+      });
+      router.push("/"); // redirect to dashboard after login
+    } else {
+      toast.error("Invalid email or password");
+    }
     console.log("Login form submitted!");
   };
 
@@ -38,6 +66,7 @@ const LoginForm = () => {
               <input
                 type="text"
                 id="email"
+                onChange={handleChange}
                 name="email"
                 placeholder="you@example.com"
                 className="shadow appearance-none border rounded w-full py-2 px-10 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -61,6 +90,7 @@ const LoginForm = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
+                onChange={handleChange}
                 name="password"
                 placeholder="********"
                 className="shadow appearance-none border rounded w-full py-2 px-10 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
