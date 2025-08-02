@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import SocialLoginButton from "@/app/Components/SocialLoginButton/SocialLoginButton";
+import SocialLoginButton from "@/app/Components/Navbar/SocialLoginButton/SocialLoginButton";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";

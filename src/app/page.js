@@ -1,12 +1,12 @@
 import Image from "next/image";
-import Banner from "./Components/Banner/Banner";
-import AgricultureProduct from "./Components/AgricultureProducts/AgricultureProducts";
-import LandscapeProducts from "./Components/LandscapeProducts/LandscapeProducts";
-import TrustedCustomer from "./Components/TrustedCustomer/TrustedCustomer";
-import OurCustomerSays from "./Components/OurCustomerSays/OurCustomerSays";
-import WhyUs from "./Components/WhyUs/WhyUs";
+import Banner from "./Components/Home/Banner/Banner";
+import AgricultureProduct from "./Components/Home/AgricultureProducts/AgricultureProducts";
+import LandscapeProducts from "./Components/Home/LandscapeProducts/LandscapeProducts";
+import TrustedCustomer from "./Components/Home/TrustedCustomer/TrustedCustomer";
+import OurCustomerSays from "./Components/Home/OurCustomerSays/OurCustomerSays";
+import WhyUs from "./Components/Home/WhyUs/WhyUs";
 import MarqueeProducts from "./Components/MarqueeProduct/MarqueeProduct";
-import Branches from "./Components/Branches/Branches";
+import Branches from "./Components/Home/Branches/Branches";
 
 export default function Home() {
   return (

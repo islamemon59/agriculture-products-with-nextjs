@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import SocialLoginButton from "@/app/Components/SocialLoginButton/SocialLoginButton";
+import SocialLoginButton from "@/app/Components/Navbar/SocialLoginButton/SocialLoginButton";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";

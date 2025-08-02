@@ -80,9 +80,9 @@ const ProductDetails = () => {
 
   const calculateDiscountedPrice = (priceStr, discount) => {
     const priceValue = parseFloat(priceStr.replace(/[^0-9.-]+/g, ""));
-    if (isNaN(priceValue) || discount === undefined) return priceStr;
+    if (isNaN(priceValue) || discount === undefined) return priceValue;
     const finalPrice = priceValue * (1 - discount / 100);
-    return `₹${finalPrice.toFixed(2)}`;
+    return `${finalPrice.toFixed(2)}`;
   };
 
   if (!product) return <Loader />;
