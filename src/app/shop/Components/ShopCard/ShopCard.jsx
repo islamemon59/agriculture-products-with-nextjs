@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link"; // Assuming you're using Next.js Link for navigation
 
 const ShopCard = ({ product }) => {
-  const { name, image, final_price, price, discount, rating, brand, slug } = product;
+  const {_id, name, image, final_price, price, discount, rating, brand, slug } = product;
 
   const renderStars = () => {
     const stars = [];
@@ -24,7 +24,7 @@ const ShopCard = ({ product }) => {
   };
 
   return (
-    <Link href={`/products/${slug}`} passHref>
+    <Link href={`/shop/${_id}`} passHref>
       <div className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer p-5 flex flex-col gap-4 h-full">
         {/* Product Image */}
         <div className="w-full aspect-square relative overflow-hidden rounded-lg border border-gray-100">
