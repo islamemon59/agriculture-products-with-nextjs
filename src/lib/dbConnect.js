@@ -3,6 +3,7 @@ const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
 
 export const collectionObj = {
   userCollection: "userData",
+  productsCollection: "products"
 };
 
 export const dbConnect = (collectionName) => {

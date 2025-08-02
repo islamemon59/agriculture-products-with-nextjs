@@ -1,21 +1,11 @@
-'use client';
+"use client";
 
-import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
-import Image from 'next/image';
-import { twMerge } from 'tailwind-merge';
+import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
+import Image from "next/image";
+import Link from "next/link"; // Assuming you're using Next.js Link for navigation
 
 const ShopCard = ({ product }) => {
-  const {
-    name,
-    slug,
-    description,
-    image,
-    final_price,
-    price,
-    discount,
-    rating,
-    brand,
-  } = product;
+  const { name, image, final_price, price, discount, rating, brand, slug } = product;
 
   const renderStars = () => {
     const stars = [];
@@ -23,38 +13,61 @@ const ShopCard = ({ product }) => {
     const half = rating % 1 >= 0.5;
     const empty = 5 - full - (half ? 1 : 0);
 
-    for (let i = 0; i < full; i++) stars.push(<FaStar key={`f-${i}`} className="text-yellow-400" />);
-    if (half) stars.push(<FaStarHalfAlt key="half" className="text-yellow-400" />);
-    for (let i = 0; i < empty; i++) stars.push(<FaRegStar key={`e-${i}`} className="text-yellow-400" />);
+    for (let i = 0; i < full; i++)
+      stars.push(<FaStar key={`f-${i}`} className="text-yellow-500 text-sm" />);
+    if (half)
+      stars.push(<FaStarHalfAlt key="half" className="text-yellow-500 text-sm" />);
+    for (let i = 0; i < empty; i++)
+      stars.push(<FaRegStar key={`e-${i}`} className="text-yellow-500 text-sm" />);
 
     return stars;
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all p-4 flex flex-col gap-3">
-      <div className="w-full aspect-square relative overflow-hidden rounded-xl">
-        <Image
-          src={image}
-          alt={name}
-          fill
-          className="object-cover hover:scale-105 transition-transform"
-        />
-      </div>
+    <Link href={`/products/${slug}`} passHref>
+      <div className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer p-5 flex flex-col gap-4 h-full">
+        {/* Product Image */}
+        <div className="w-full aspect-square relative overflow-hidden rounded-lg border border-gray-100">
+          <Image
+            src={image}
+            alt={name}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300" // Apply hover effect via group
+          />
+          {discount > 0 && (
+            <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+              -{discount}%
+            </span>
+          )}
+        </div>
 
-      <div className="flex flex-col gap-1">
-        <h3 className="text-lg font-semibold line-clamp-2">{name}</h3>
-        <p className="text-sm text-gray-500">{brand}</p>
-        <div className="flex gap-1">{renderStars()}</div>
+        {/* Product Information */}
+        <div className="flex flex-col flex-grow">
+          <h3 className="text-lg md:text-xl font-bold text-gray-800 line-clamp-2 leading-tight mb-1 group-hover:text-blue-600 transition-colors duration-300">
+            {name}
+          </h3>
+          <p className="text-sm text-gray-600 mb-2">{brand}</p>
 
-        <div className="mt-2 flex items-center gap-2">
-          <span className="text-xl font-bold text-green-600">₹{final_price}</span>
-          <span className="text-sm line-through text-gray-400">₹{price}</span>
-          <span className="text-xs bg-red-100 text-red-500 px-2 py-0.5 rounded">
-            -{discount}%
-          </span>
+          {/* Rating */}
+          <div className="flex items-center gap-1 mb-2">
+            {renderStars()}
+            <span className="text-xs text-gray-500 ml-1">({rating.toFixed(1)})</span>
+          </div>
+
+          {/* Price Information */}
+          <div className="flex items-baseline gap-2 mt-auto"> {/* mt-auto pushes price to bottom */}
+            <span className="text-2xl font-extrabold text-green-700">
+              {final_price}
+            </span>
+            {discount > 0 && (
+              <span className="text-base line-through text-gray-400">
+                {price}
+              </span>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

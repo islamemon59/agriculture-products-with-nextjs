@@ -1,7 +1,10 @@
-import productData from '@/data/products.json'; // or fetched data
-import ShopCard from './Components/ShopCard/ShopCard';
+import ShopCard from "./Components/ShopCard/ShopCard";
 
-const Shop = () => {
+const Shop = async () => {
+  const res = await fetch("http://localhost:3000/api/shop");
+  const productData = await res.json();
+  console.log(productData);
+
   return (
     <section className="px-4 py-10 max-w-7xl mx-auto">
       <h2 className="text-2xl font-bold mb-6">Our Products</h2>
