@@ -72,7 +72,6 @@ const ProductDetails = () => {
         product.discount
       );
       const totalPrice = (productPrice * quantity).toFixed(0);
-      console.log(totalPrice);
 
       const cartData = {
         product_id: product._id,
@@ -88,7 +87,6 @@ const ProductDetails = () => {
         });
 
         const data = await cartRes.json();
-        console.log(data);
 
         if (data.insertedId) {
           toast.success(`${quantity} x ${product.name} added to cart!`, {

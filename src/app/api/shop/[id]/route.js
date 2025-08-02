@@ -31,3 +31,6 @@ export async function GET(req, { params }) {
 
   return NextResponse.json(product, { status: 200 });
 }
+
+
+

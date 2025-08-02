@@ -32,7 +32,6 @@ const RegisterForm = () => {
       });
       router.push("/login")
     }
-    console.log("Register form submitted!", form, data);
   };
 
   const togglePasswordVisibility = () => {

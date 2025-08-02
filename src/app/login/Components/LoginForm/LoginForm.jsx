@@ -37,7 +37,6 @@ const LoginForm = () => {
     } else {
       toast.error("Invalid email or password");
     }
-    console.log("Login form submitted!");
   };
 
   const togglePasswordVisibility = () => {

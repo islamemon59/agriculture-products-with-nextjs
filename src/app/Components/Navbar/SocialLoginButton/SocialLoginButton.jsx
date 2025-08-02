@@ -6,7 +6,6 @@ const SocialLoginButton = () => {
 
     
   const handleGoogleLogin = () => {
-    console.log("Google login button clicked!");
   };
 
     return (
