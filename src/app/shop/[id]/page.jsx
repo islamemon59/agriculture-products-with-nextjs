@@ -67,10 +67,40 @@ const ProductDetails = () => {
     });
 
     if (result.isConfirmed) {
-      toast.success(`${quantity} x ${product.name} added to cart!`, {
-        icon: <FaCheckCircle className="text-green-500" />,
-      });
-      console.log(`Added ${quantity} of ${product.name} to cart.`);
+      const productPrice = calculateDiscountedPrice(
+        product.price,
+        product.discount
+      );
+      const totalPrice = (productPrice * quantity).toFixed(0);
+      console.log(totalPrice);
+
+      const cartData = {
+        product_id: product._id,
+        product_price: parseInt(totalPrice),
+        product_image: product.image,
+        product_name: product.name,
+        product_quantity: quantity,
+      };
+      try {
+        const cartRes = await fetch("http://localhost:3000/api/shop", {
+          method: "POST",
+          body: JSON.stringify(cartData),
+        });
+
+        const data = await cartRes.json();
+        console.log(data);
+
+        if (data.insertedId) {
+          toast.success(`${quantity} x ${product.name} added to cart!`, {
+            icon: <FaCheckCircle className="text-green-500" />,
+          });
+        } else {
+          toast.error("Failed to add to cart");
+        }
+      } catch (err) {
+        console.error(err);
+        toast.error("Something went wrong");
+      }
     } else {
       toast("Operation cancelled.", {
         icon: "👋",

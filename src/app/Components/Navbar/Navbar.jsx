@@ -7,10 +7,12 @@ import NavLinks from "./NavLinks/NavLinks";
 import LoginBtn from "./LoginBtn/LoginBtn";
 import MobileNavLinks from "./ModileNavLinks/MobileNavLinks";
 import ToggleMenu from "./ToggleMenu/ToggleMenu";
+import CartModal from "@/app/shop/Components/CartModal/CartModal";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
   const { data: session, status } = useSession();
   const user = session?.user;
@@ -75,9 +77,18 @@ const Navbar = () => {
               <button className="text-black dark:text-white text-2xl hover:text-gray-700 dark:hover:text-gray-300">
                 <IoSearchOutline />
               </button>
-              <button className="text-black dark:text-white text-2xl hover:text-gray-700 dark:hover:text-gray-300">
+              <button
+                onClick={() => setIsCartModalOpen(!isCartModalOpen)}
+                className="text-black dark:text-white text-2xl hover:text-gray-700 dark:hover:text-gray-300"
+              >
                 <IoCartOutline />
               </button>
+              <CartModal
+                isOpen={isCartModalOpen}
+                setIsCartModalOpen={setIsCartModalOpen}
+                userEmail={user?.email}
+                cartItem={{}}
+              />
             </div>
           </div>
         </div>
