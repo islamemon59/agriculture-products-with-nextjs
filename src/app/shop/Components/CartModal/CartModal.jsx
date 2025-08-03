@@ -23,7 +23,7 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
     };
     
     fetchCartItem();
-  }, []);
+  }, [cartData]);
   
   const handleBuyNow = () => {
     setIsCartModalOpen(false);
