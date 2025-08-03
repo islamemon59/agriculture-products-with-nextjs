@@ -1,7 +1,8 @@
 "use client";
 import React, { useMemo } from "react";
 import Image from "next/image";
-import { FaTimes, FaTrash, FaShoppingCart, FaCheckCircle } from "react-icons/fa";
+import { FaTimes, FaTrash, FaShoppingCart, FaArrowRight } from "react-icons/fa";
+import Link from "next/link";
 
 const ModalData = ({
   setIsCartModalOpen,
@@ -16,14 +17,14 @@ const ModalData = ({
       const price = parseFloat(item.product_price);
       const quantity = parseInt(item.product_quantity);
       if (!isNaN(price) && !isNaN(quantity)) {
-        return acc + (price * quantity);
+        return acc + price * quantity;
       }
       return acc;
     }, 0);
   }, [cartData]);
 
   // Define a fixed shipping fee for demonstration purposes
-  const shippingFee = 40.00;
+  const shippingFee = 40.0;
 
   // Calculate the total price including shipping
   const totalPrice = subtotal + shippingFee;
@@ -34,7 +35,7 @@ const ModalData = ({
         {/* Modal Header */}
         <div className="flex items-center justify-between pb-6 border-b border-gray-200 mb-6">
           <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
-            <FaShoppingCart className="h-8 w-8 text-blue-600" />
+            <FaShoppingCart className="h-8 w-8 text-green-600" />
             Your Shopping Cart
           </h2>
           <button
@@ -56,7 +57,10 @@ const ModalData = ({
               </div>
             ) : (
               cartData.map((item) => (
-                <div key={item._id} className="flex items-start gap-4 p-4 rounded-lg bg-gray-50 shadow-sm">
+                <div
+                  key={item._id}
+                  className="flex items-start gap-4 p-4 rounded-lg bg-gray-50 shadow-sm"
+                >
                   {/* Product Image */}
                   <div className="relative w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200">
                     <Image
@@ -74,10 +78,14 @@ const ModalData = ({
                         {item.product_name}
                       </h3>
                       <p className="text-md text-gray-600">
-                        Price: <span className="font-bold">₹{item.product_price}</span>
+                        Price:{" "}
+                        <span className="font-bold">₹{item.product_price}</span>
                       </p>
                       <p className="text-md text-gray-600">
-                        Quantity: <span className="font-bold">{item.product_quantity}</span>
+                        Quantity:{" "}
+                        <span className="font-bold">
+                          {item.product_quantity}
+                        </span>
                       </p>
                     </div>
                     {/* Remove Button */}
@@ -97,14 +105,18 @@ const ModalData = ({
           {/* Cart Summary */}
           <div className="md:w-1/3 space-y-6">
             <div className="bg-blue-50 p-6 rounded-lg shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-3 border-blue-200">Order Summary</h3>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-3 border-blue-200">
+                Order Summary
+              </h3>
               <div className="flex justify-between items-center text-lg text-gray-700 mb-2">
                 <span>Subtotal ({cartData.length} items)</span>
                 <span className="font-bold">₹{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-lg text-gray-700 mb-4">
                 <span>Shipping</span>
-                <span className="font-bold text-green-600">₹{shippingFee.toFixed(2)}</span>
+                <span className="font-bold text-green-600">
+                  ₹{shippingFee.toFixed(2)}
+                </span>
               </div>
               <div className="flex justify-between items-center text-2xl font-bold text-gray-900 pt-4 border-t border-blue-200">
                 <span>Total</span>
@@ -116,12 +128,25 @@ const ModalData = ({
             <button
               onClick={handleBuyNow}
               disabled={cartData.length === 0}
-              className={`w-full flex items-center justify-center gap-2 text-lg font-semibold py-4 rounded-lg transition-all duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
-                ${cartData.length === 0 ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-700"}`}
+              className={`w-full inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-lg shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2
+        ${
+          cartData.length === 0
+            ? "bg-gray-200 text-gray-500 cursor-not-allowed border border-gray-300" // Lighter disabled state
+            : "bg-gradient-to-r from-green-500 to-green-700 text-white hover:from-green-600 hover:to-green-800 focus:ring-green-500 transform hover:-translate-y-0.5" // Vibrant green for action, subtle lift
+        }`}
             >
-              <FaCheckCircle className="text-xl" />
+              <FaShoppingCart className="text-xl" /> {/* Shopping cart icon */}
               Proceed to Checkout
             </button>
+            <Link
+              onClick={() => setIsCartModalOpen(false)}
+              href="/shop"
+              className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-lg shadow-sm border border-blue-500 text-blue-700 bg-white hover:bg-blue-50 hover:border-blue-600 hover:text-blue-800 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:-translate-y-0.5" // Outline style for secondary action
+            >
+              <FaArrowRight className="text-xl" />{" "}
+              {/* Arrow icon for navigation */}
+              Continue Shopping
+            </Link>
           </div>
         </div>
       </div>
