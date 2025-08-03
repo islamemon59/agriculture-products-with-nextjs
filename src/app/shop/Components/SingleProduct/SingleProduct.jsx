@@ -9,20 +9,20 @@ const SingleProduct = ({
   mainImage,
   setQuantity,
   quantity,
-  setMainImage
+  setMainImage,
 }) => {
   return (
     <div className="min-h-screen bg-gray-50 pb-12">
       {/* Banner Section */}
       <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden bg-gradient-to-r from-green-500 to-blue-500 shadow-md">
         <Image
-          src={product?.image || "/placeholder.png"}
+          src={product?.image}
           alt={`Banner for ${product?.name}`}
           fill
           className="object-cover object-center opacity-70"
           priority
         />
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-4">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white text-center drop-shadow-lg">
             {product?.name}
           </h1>

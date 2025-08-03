@@ -16,7 +16,7 @@ const ModalData = ({
       const price = parseFloat(item.product_price);
       const quantity = parseInt(item.product_quantity);
       if (!isNaN(price) && !isNaN(quantity)) {
-        return acc + price * quantity;
+        return acc + (price * quantity);
       }
       return acc;
     }, 0);
