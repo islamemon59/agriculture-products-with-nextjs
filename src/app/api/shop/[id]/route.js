@@ -32,5 +32,48 @@ export async function GET(req, { params }) {
   return NextResponse.json(product, { status: 200 });
 }
 
+export async function DELETE(req, { params }) {
+  try {
+    const session = await getServerSession(authOptions);
+    const userEmail = session?.user?.email;
 
+    if (!userEmail) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
+    const { id } = await params;
+    console.log(id);
+
+    if (!id) {
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+    }
+
+    const cartDataCollection = dbConnect(collectionObj.cartDataCollection);
+
+    // Check if the item exists and belongs to this user
+    const item = await cartDataCollection.findOne({
+      product_id: id,
+    });
+
+    if (!item) {
+      return NextResponse.json({ error: "Item not found" }, { status: 404 });
+    }
+
+    if (item.email !== userEmail) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    await cartDataCollection.deleteOne({ product_id: id });
+
+    return NextResponse.json(
+      { message: "Item deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("DELETE /api/shop error:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

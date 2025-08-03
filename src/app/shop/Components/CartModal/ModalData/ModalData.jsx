@@ -12,12 +12,11 @@ const ModalData = ({
 }) => {
   // Memoize the total price calculation to avoid re-calculating on every render
   const subtotal = useMemo(() => {
-    return cartData.reduce((acc, item) => {
+    return cartData?.reduce((acc, item) => {
       // Ensure price and quantity are numbers before calculating
       const price = parseFloat(item.product_price);
-      const quantity = parseInt(item.product_quantity);
-      if (!isNaN(price) && !isNaN(quantity)) {
-        return acc + price * quantity;
+      if (!isNaN(price)) {
+        return acc + price;
       }
       return acc;
     }, 0);
@@ -90,7 +89,7 @@ const ModalData = ({
                     </div>
                     {/* Remove Button */}
                     <button
-                      onClick={() => handleDeleteItem(item._id)}
+                      onClick={() => handleDeleteItem(item.product_id)}
                       className="text-red-500 hover:text-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-300 rounded-full p-2"
                       aria-label={`Remove ${item.product_name} from cart`}
                     >

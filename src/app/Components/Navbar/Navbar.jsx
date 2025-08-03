@@ -13,6 +13,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  console.log(isCartModalOpen);
 
   const { data: session, status } = useSession();
   const user = session?.user;
@@ -87,7 +88,6 @@ const Navbar = () => {
                 isOpen={isCartModalOpen}
                 setIsCartModalOpen={setIsCartModalOpen}
                 userEmail={user?.email}
-                cartItem={{}}
               />
             </div>
           </div>
