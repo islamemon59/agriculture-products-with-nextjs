@@ -7,13 +7,25 @@ export const collectionObj = {
   cartDataCollection: "cartData"
 };
 
-export const dbConnect = (collectionName) => {
-  const client = new MongoClient(uri, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
-  });
+// Use a global variable to store the MongoDB client promise. This prevents creating a new connection
+// on every API call.
+let clientPromise;
+
+if (!uri) {
+  throw new Error("Please add your Mongo URI to .env.local");
+}
+
+let client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+clientPromise = client.connect();
+
+export const dbConnect = async (collectionName) => {
+  const client = await clientPromise;
   return client.db(process.env.DB_NAME).collection(collectionName);
 };

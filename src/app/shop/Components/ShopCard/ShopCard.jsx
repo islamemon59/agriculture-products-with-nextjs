@@ -2,15 +2,18 @@
 
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import Image from "next/image";
-import Link from "next/link"; // Assuming you're using Next.js Link for navigation
+import Link from "next/link";
 
 const ShopCard = ({ product }) => {
   const {_id, name, image, final_price, price, discount, rating, brand, slug } = product;
 
+  // Add a defensive check for the rating
+  const safeRating = rating ?? 0;
+
   const renderStars = () => {
     const stars = [];
-    const full = Math.floor(rating);
-    const half = rating % 1 >= 0.5;
+    const full = Math.floor(safeRating);
+    const half = safeRating % 1 >= 0.5;
     const empty = 5 - full - (half ? 1 : 0);
 
     for (let i = 0; i < full; i++)
@@ -32,7 +35,7 @@ const ShopCard = ({ product }) => {
             src={image}
             alt={name}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300" // Apply hover effect via group
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {discount > 0 && (
             <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
@@ -49,13 +52,15 @@ const ShopCard = ({ product }) => {
           <p className="text-sm text-gray-600 mb-2">{brand}</p>
 
           {/* Rating */}
-          <div className="flex items-center gap-1 mb-2">
-            {renderStars()}
-            <span className="text-xs text-gray-500 ml-1">({rating.toFixed(1)})</span>
-          </div>
+          {rating !== undefined && (
+            <div className="flex items-center gap-1 mb-2">
+              {renderStars()}
+              <span className="text-xs text-gray-500 ml-1">({safeRating.toFixed(1)})</span>
+            </div>
+          )}
 
           {/* Price Information */}
-          <div className="flex items-baseline gap-2 mt-auto"> {/* mt-auto pushes price to bottom */}
+          <div className="flex items-baseline gap-2 mt-auto">
             <span className="text-2xl font-extrabold text-green-700">
               {final_price}
             </span>
