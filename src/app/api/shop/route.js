@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const productsCollection = dbConnect(collectionObj.productsCollection);
+    const productsCollection = await dbConnect(collectionObj.productsCollection);
     const products = await productsCollection
       .find()
       .sort({ createdAt: -1 })
@@ -37,7 +37,7 @@ export async function POST(req) {
   }
 
   try {
-    const cartDataCollection = dbConnect(collectionObj.cartDataCollection);
+    const cartDataCollection = await dbConnect(collectionObj.cartDataCollection);
 
     cartData.email = email;
     cartData.addedAt = new Date();

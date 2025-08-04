@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { collectionObj, dbConnect } from "@/lib/dbConnect";
 import { authOptions } from "@/lib/authOptions";
 import { ObjectId } from "mongodb";
+import { collectionObj, dbConnect } from "@/lib/dbConnect";
 
 export async function GET(req, { params }) {
   const session = await getServerSession(authOptions);
@@ -11,7 +11,7 @@ export async function GET(req, { params }) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userCollection = dbConnect(collectionObj.userCollection);
+  const userCollection = await dbConnect(collectionObj.userCollection);
 
   const user = await userCollection.findOne({ email: session.user.email });
 
@@ -19,7 +19,7 @@ export async function GET(req, { params }) {
     return NextResponse.json({ error: "User not found" }, { status: 403 });
   }
 
-  const productsCollection = dbConnect(collectionObj.productsCollection);
+  const productsCollection = await dbConnect(collectionObj.productsCollection);
 
   const { id } = await params;
 
@@ -48,7 +48,7 @@ export async function DELETE(req, { params }) {
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    const cartDataCollection = dbConnect(collectionObj.cartDataCollection);
+    const cartDataCollection = await dbConnect(collectionObj.cartDataCollection);
 
     // Check if the item exists and belongs to this user
     const item = await cartDataCollection.findOne({
