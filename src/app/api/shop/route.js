@@ -1,6 +1,7 @@
 import { authOptions } from "@/lib/authOptions";
 import { collectionObj, dbConnect } from "@/lib/dbConnect";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -44,6 +45,7 @@ export async function POST(req) {
 
     const result = await cartDataCollection.insertOne(cartData);
 
+    revalidatePath("/shop")
     return NextResponse.json({ insertedId: result.insertedId });
   } catch (error) {
     return NextResponse.json({ error: "DB Error" }, { status: 500 });

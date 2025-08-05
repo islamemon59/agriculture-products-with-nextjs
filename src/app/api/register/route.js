@@ -13,7 +13,7 @@ export async function POST(req) {
     );
   }
 
-  const userCollection = dbConnect(collectionObj.userCollection);
+  const userCollection = await dbConnect(collectionObj.userCollection);
   const existingUser = await userCollection.findOne({ email });
 
   if (existingUser) {

@@ -27,7 +27,7 @@ const ShopCard = ({ product }) => {
   };
 
   return (
-    <Link href={`/shop/${_id}`} passHref>
+    <Link href={`/shop/${_id}`}>
       <div className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer p-5 flex flex-col gap-4 h-full">
         {/* Product Image */}
         <div className="w-full aspect-square relative overflow-hidden rounded-lg border border-gray-100">

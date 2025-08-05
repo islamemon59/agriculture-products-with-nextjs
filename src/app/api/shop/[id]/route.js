@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { ObjectId } from "mongodb";
 import { collectionObj, dbConnect } from "@/lib/dbConnect";
+import { revalidatePath } from "next/cache";
 
 export async function GET(req, { params }) {
   const session = await getServerSession(authOptions);
@@ -28,7 +29,7 @@ export async function GET(req, { params }) {
   if (!product) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
   }
-
+  revalidatePath(`/shop/${id}`);
   return NextResponse.json(product, { status: 200 });
 }
 
@@ -36,6 +37,7 @@ export async function DELETE(req, { params }) {
   try {
     const session = await getServerSession(authOptions);
     const userEmail = session?.user?.email;
+    console.log(userEmail);
 
     if (!userEmail) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -48,7 +50,9 @@ export async function DELETE(req, { params }) {
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    const cartDataCollection = await dbConnect(collectionObj.cartDataCollection);
+    const cartDataCollection = await dbConnect(
+      collectionObj.cartDataCollection
+    );
 
     // Check if the item exists and belongs to this user
     const item = await cartDataCollection.findOne({
@@ -65,6 +69,7 @@ export async function DELETE(req, { params }) {
 
     await cartDataCollection.deleteOne({ product_id: id });
 
+    revalidatePath(`/shop`);
     return NextResponse.json(
       { message: "Item deleted successfully" },
       { status: 200 }

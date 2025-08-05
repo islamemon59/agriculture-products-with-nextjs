@@ -1,6 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
-import { collectionObj, dbConnect } from "./dbConnect";
 import { compare } from "bcryptjs";
+import { collectionObj, dbConnect } from "./dbConnect";
 
 export const authOptions = {
   providers: [
@@ -11,7 +11,7 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const userCollection = dbConnect(collectionObj.userCollection)
+        const userCollection = await dbConnect(collectionObj.userCollection)
 
         const user = await userCollection.findOne({ email: credentials.email });
 

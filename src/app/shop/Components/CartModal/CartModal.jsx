@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import ModalData from "./ModalData/ModalData";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Loader from "@/app/Components/Loader/Loader";
 
 const CartModal = ({ isOpen, setIsCartModalOpen }) => {
   const router = useRouter()
@@ -15,6 +14,7 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
       try {
         const res = await fetch("/api/cart");
         const data = await res.json();
+        router.refresh()
         setCartData(data);
         if (!res.ok) throw new Error(data.error || "Something went wrong");
       } catch (err) {
@@ -23,7 +23,7 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
     };
     
     fetchCartItem();
-  }, [cartData]);
+  }, []);
   
   const handleBuyNow = () => {
     setIsCartModalOpen(false);
@@ -34,9 +34,9 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
       method: "DELETE",
     });
     const data = await res.json();
+    router.refresh()
     if(data.message){
       toast.success("Successfully Deleted")
-      router.refresh()
     }
   };
 
