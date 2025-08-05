@@ -29,7 +29,6 @@ export async function GET(req, { params }) {
   if (!product) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
   }
-  revalidatePath(`/shop/${id}`);
   return NextResponse.json(product, { status: 200 });
 }
 
@@ -37,45 +36,56 @@ export async function DELETE(req, { params }) {
   try {
     const session = await getServerSession(authOptions);
     const userEmail = session?.user?.email;
-    console.log(userEmail);
 
     if (!userEmail) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = await params;
-    console.log(id);
-
     if (!id) {
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    const cartDataCollection = await dbConnect(
-      collectionObj.cartDataCollection
-    );
+    const cartDataCollection = await dbConnect(collectionObj.cartDataCollection);
+    const productsCollection = await dbConnect(collectionObj.productsCollection); // Connect to products
 
-    // Check if the item exists and belongs to this user
-    const item = await cartDataCollection.findOne({
-      product_id: id,
+    // Step 1: Find the cart item to get product_id and quantity
+    const cartItem = await cartDataCollection.findOne({
+      _id: new ObjectId(id),
+      email: userEmail,
     });
 
-    if (!item) {
-      return NextResponse.json({ error: "Item not found" }, { status: 404 });
+    if (!cartItem) {
+      return NextResponse.json(
+        { error: "Item not found or not authorized" },
+        { status: 404 }
+      );
     }
 
-    if (item.email !== userEmail) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    // Step 2: Delete the cart item
+    const result = await cartDataCollection.deleteOne({ _id: new ObjectId(id), email: userEmail });
+
+    if (result.deletedCount === 0) {
+      return NextResponse.json(
+        { error: "Failed to delete item" },
+        { status: 500 }
+      );
     }
 
-    await cartDataCollection.deleteOne({ product_id: id });
+    // Step 3: Increase product stock back
+    if (cartItem.product_id && cartItem.product_quantity) {
+      await productsCollection.updateOne(
+        { _id: new ObjectId(cartItem.product_id) },
+        { $inc: { stock: cartItem.product_quantity } }
+      );
+    }
 
-    revalidatePath(`/shop`);
     return NextResponse.json(
-      { message: "Item deleted successfully" },
+      { message: "Item deleted and stock restored" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("DELETE /api/shop error:", error);
+    console.error("DELETE /api/cart/[id] error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
