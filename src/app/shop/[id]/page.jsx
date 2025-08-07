@@ -12,7 +12,7 @@ import { useParams } from "next/navigation";
 import SingleProduct from "../Components/SingleProduct/SingleProduct";
 import Loader from "@/app/Components/Loader/Loader";
 
-const ProductDetails = ({ onCartAddSuccess }) => {
+const ProductDetails = () => {
   const params = useParams();
   const id = params?.id;
 
@@ -120,21 +120,6 @@ const ProductDetails = ({ onCartAddSuccess }) => {
         toast.success(`${quantity} x ${product.name} added to cart!`, {
           icon: <FaCheckCircle className="text-green-500" />,
         });
-
-        // 👇 Update UI instantly
-        if (typeof onCartAddSuccess === "function") {
-          onCartAddSuccess({
-            _id: data.insertedId,
-            ...cartData,
-            email: "user@example.com", // Update with real user email if available
-          });
-        }
-
-        // 👇 Optional: decrease local stock count
-        setProduct((prev) => ({
-          ...prev,
-          stock: prev.stock - quantity,
-        }));
 
       } else {
         toast.error("Failed to add to cart.");

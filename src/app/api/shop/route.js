@@ -74,12 +74,6 @@ export async function POST(req) {
     cartData.addedAt = new Date();
     const result = await cartDataCollection.insertOne(cartData);
 
-    // Step 4: Decrease stock from products collection
-    await productsCollection.updateOne(
-      { _id: new ObjectId(product_id) },
-      { $inc: { stock: -product_quantity } }
-    );
-
     return NextResponse.json(
       { insertedId: result.insertedId },
       { status: 201 }

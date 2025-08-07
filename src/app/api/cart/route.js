@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
 import { collectionObj, dbConnect } from "@/lib/dbConnect";
 
 export async function GET(req) {

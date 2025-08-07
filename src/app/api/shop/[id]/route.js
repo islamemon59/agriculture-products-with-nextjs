@@ -47,7 +47,6 @@ export async function DELETE(req, { params }) {
     }
 
     const cartDataCollection = await dbConnect(collectionObj.cartDataCollection);
-    const productsCollection = await dbConnect(collectionObj.productsCollection); // Connect to products
 
     // Step 1: Find the cart item to get product_id and quantity
     const cartItem = await cartDataCollection.findOne({
@@ -72,16 +71,8 @@ export async function DELETE(req, { params }) {
       );
     }
 
-    // Step 3: Increase product stock back
-    if (cartItem.product_id && cartItem.product_quantity) {
-      await productsCollection.updateOne(
-        { _id: new ObjectId(cartItem.product_id) },
-        { $inc: { stock: cartItem.product_quantity } }
-      );
-    }
-
     return NextResponse.json(
-      { message: "Item deleted and stock restored" },
+      { message: "Item deleted" },
       { status: 200 }
     );
   } catch (error) {

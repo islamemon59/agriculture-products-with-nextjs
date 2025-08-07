@@ -2,6 +2,7 @@
 import toast from "react-hot-toast";
 import ModalData from "./ModalData/ModalData";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const CartModal = ({ isOpen, setIsCartModalOpen }) => {
   const [cartData, setCartData] = useState([]);
