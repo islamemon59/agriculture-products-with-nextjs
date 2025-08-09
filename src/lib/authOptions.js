@@ -1,4 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { compare } from "bcryptjs";
 import { collectionObj, dbConnect } from "./dbConnect";
 
@@ -11,7 +12,7 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const userCollection = await dbConnect(collectionObj.userCollection)
+        const userCollection = await dbConnect(collectionObj.userCollection);
 
         const user = await userCollection.findOne({ email: credentials.email });
 
@@ -31,19 +32,39 @@ export const authOptions = {
         };
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
   ],
   pages: {
     signIn: "/login",
   },
+
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) token.user = user;
-      return token;
-    },
-    async session({ session, token }) {
-      session.user = token.user;
-      return session;
+    async signIn({ user, account, profile }) {
+      try {
+        const userCollection = await dbConnect(collectionObj.userCollection);
+
+        // Check if user already exists in DB
+        const existingUser = await userCollection.findOne({ email: user.email });
+
+        if (!existingUser) {
+          // Insert new user
+          await userCollection.insertOne({
+            name: user.name,
+            email: user.email,
+            image: user.image,
+            createdAt: new Date(),
+          });
+        }
+
+        return true; // Allow sign-in
+      } catch (err) {
+        console.error("Error in signIn callback:", err);
+        return false; // Block sign-in on error
+      }
     },
   },
-//   secret: process.env.NEXTAUTH_SECRET,
+  //   secret: process.env.NEXTAUTH_SECRET,
 };

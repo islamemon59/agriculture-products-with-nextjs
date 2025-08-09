@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import SocialLoginButton from "@/app/Components/Navbar/SocialLoginButton/SocialLoginButton";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import SocialLoginButton from "@/app/(authentication)/SocialLoginButton/SocialLoginButton";
 const RegisterForm = () => {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false);

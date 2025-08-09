@@ -7,6 +7,7 @@ import LoginBtn from "./LoginBtn/LoginBtn";
 import MobileNavLinks from "./ModileNavLinks/MobileNavLinks";
 import ToggleMenu from "./ToggleMenu/ToggleMenu";
 import CartModal from "@/app/shop/Components/CartModal/CartModal";
+import Loading from "@/app/loading";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,6 +35,8 @@ const Navbar = () => {
 
     fetchCartItem();
   }, []);
+
+  if(status === "loading") return <Loading/>
 
 
   return (

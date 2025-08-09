@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import SocialLoginButton from "@/app/Components/Navbar/SocialLoginButton/SocialLoginButton";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import SocialLoginButton from "@/app/(authentication)/SocialLoginButton/SocialLoginButton";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -136,18 +136,14 @@ const LoginForm = () => {
             </button>
           </div>
         </form>
-
-        {/* Separator */}
         <div className="flex items-center my-6">
           <div className="flex-grow border-t border-gray-300"></div>
           <span className="mx-4 text-gray-500 text-sm">Or</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
 
-        {/* Google Social Login Button */}
         <SocialLoginButton />
 
-        {/* Link to Register */}
         <p className="text-center text-gray-600 text-sm mt-6">
           Don't have an account?{" "}
           <Link
