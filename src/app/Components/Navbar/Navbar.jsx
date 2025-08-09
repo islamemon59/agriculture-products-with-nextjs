@@ -1,8 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoSearchOutline, IoCartOutline } from "react-icons/io5";
 import { useSession, signOut } from "next-auth/react";
-import Loader from "../Loader/Loader";
 import NavLinks from "./NavLinks/NavLinks";
 import LoginBtn from "./LoginBtn/LoginBtn";
 import MobileNavLinks from "./ModileNavLinks/MobileNavLinks";
@@ -14,11 +13,28 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   console.log(isCartModalOpen);
+  const [cartData, setCartData] = useState([]);
 
   const { data: session, status } = useSession();
   const user = session?.user;
 
-  if (status === "loading") return <Loader />;
+  useEffect(() => {
+    const fetchCartItem = async () => {
+      try {
+        const res = await fetch("/api/cart");
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Something went wrong");
+
+        setCartData(data);
+      } catch (err) {
+        console.error("Fetch Error:", err.message);
+        toast.error("Failed to load cart.");
+      }
+    };
+
+    fetchCartItem();
+  }, []);
+
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
@@ -80,9 +96,14 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => setIsCartModalOpen(!isCartModalOpen)}
-                className="text-black dark:text-white text-2xl hover:text-gray-700 dark:hover:text-gray-300"
+                className="text-black relative dark:text-white text-2xl hover:text-gray-700 dark:hover:text-gray-300"
               >
                 <IoCartOutline />
+                <div className="absolute -top-1 -right-1 bg-black rounded-full h-4 w-4 flex justify-center items-center">
+                  <p className="text-[10px] text-white">
+                    {cartData.length}
+                  </p>
+                </div>
               </button>
               <CartModal
                 isOpen={isCartModalOpen}

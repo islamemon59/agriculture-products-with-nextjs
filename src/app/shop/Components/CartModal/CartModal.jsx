@@ -2,16 +2,14 @@
 import toast from "react-hot-toast";
 import ModalData from "./ModalData/ModalData";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 const CartModal = ({ isOpen, setIsCartModalOpen }) => {
   const [cartData, setCartData] = useState([]);
 
-  // Fetch cart data only when modal is open
   useEffect(() => {
     if (!isOpen) return;
 
-    const fetchCartItem = async () => {
+ const fetchCartItem = async () => {
       try {
         const res = await fetch("/api/cart");
         const data = await res.json();
@@ -24,8 +22,8 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
       }
     };
 
-    fetchCartItem();
-  }, [isOpen]); // 👈 will refetch every time modal opens
+   fetchCartItem();
+  }, [isOpen]);
 
   const handleBuyNow = () => {
     setIsCartModalOpen(false);
@@ -45,7 +43,6 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
 
       if (data.message) {
         toast.success("Item removed from cart");
-        // 👇 Update UI instantly
         setCartData((prev) => prev.filter((item) => item._id !== id));
       }
     } catch (error) {

@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { useParams } from "next/navigation";
 import SingleProduct from "../Components/SingleProduct/SingleProduct";
-import Loader from "@/app/Components/Loader/Loader";
+import Loading from "@/app/loading";
 
 const ProductDetails = () => {
   const params = useParams();
@@ -130,7 +130,7 @@ const ProductDetails = () => {
     }
   };
 
-  if (!product) return <Loader />;
+  if (!product) return <Loading/>
 
   return (
     <SingleProduct

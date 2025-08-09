@@ -44,9 +44,9 @@ const SingleProduct = ({
             </div>
 
             {/* Thumbnail Images */}
-            {product.images && product.images.length > 1 && (
+            {product?.images && product?.images?.length > 1 && (
               <div className="grid grid-cols-4 gap-3">
-                {product.images.map((img, index) => (
+                {product?.images.map((img, index) => (
                   <div
                     key={index}
                     className={`relative w-full aspect-square cursor-pointer rounded-lg overflow-hidden border-2 ${
@@ -68,10 +68,10 @@ const SingleProduct = ({
             {/* Product Title and Basic Info */}
             <div className="bg-white p-6 rounded-xl shadow-md">
               <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                {product.name}
+                {product?.name}
               </h2>
               <p className="text-lg text-gray-700 mb-4">
-                {product.description}
+                {product?.description}
               </p>
 
               <div className="flex items-center gap-3 mb-4">
@@ -79,22 +79,22 @@ const SingleProduct = ({
                   Brand:
                 </span>
                 <span className="text-xl font-bold text-blue-700">
-                  {product.brand}
+                  {product?.brand}
                 </span>
               </div>
 
               {/* Rating */}
               <div className="flex items-center gap-2 mb-4">
-                {renderStars(product.rating)}
+                {renderStars(product?.rating)}
                 <span className="text-md text-gray-600">
-                  ({product.rating.toFixed(1)} out of 5 stars)
+                  ({product?.rating?.toFixed(1)} out of 5 stars)
                 </span>
               </div>
 
               {/* Price Information */}
               <div className="flex items-baseline gap-3 mb-4">
                 <span className="text-4xl font-extrabold text-green-700">
-                  {product.final_price}
+                  {product?.final_price}
                 </span>
                 {product.discount > 0 && (
                   <>

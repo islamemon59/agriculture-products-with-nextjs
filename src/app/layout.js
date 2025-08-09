@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
       >
         <Providers>
         <Navbar />
-          <div className="overflow-hidden">{children}</div>
+          <div className="overflow-hidden min-h-screen">{children}</div>
         <Toaster position="top-center" reverseOrder={false} />
         <Footer />
         </Providers>
