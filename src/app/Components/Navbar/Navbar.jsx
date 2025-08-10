@@ -9,6 +9,7 @@ import ToggleMenu from "./ToggleMenu/ToggleMenu";
 import CartModal from "@/app/shop/Components/CartModal/CartModal";
 import Loading from "@/app/loading";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,12 +50,14 @@ const Navbar = () => {
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   className="flex items-center focus:outline-none"
                 >
-                  <img
+                  <Image
                     src={
                       user?.image ||
                       "https://img.icons8.com/?size=50&id=23265&format=png"
                     }
                     alt="Avatar"
+                    width={10}
+                    height={10}
                     className="w-9 h-9 rounded-full"
                   />
                 </button>
