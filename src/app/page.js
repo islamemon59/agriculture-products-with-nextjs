@@ -5,7 +5,7 @@ import LandscapeProducts from "./Components/Home/LandscapeProducts/LandscapeProd
 import TrustedCustomer from "./Components/Home/TrustedCustomer/TrustedCustomer";
 import OurCustomerSays from "./Components/Home/OurCustomerSays/OurCustomerSays";
 import WhyUs from "./Components/Home/WhyUs/WhyUs";
-import MarqueeProducts from "./Components/MarqueeProduct/MarqueeProduct";
+import MarqueeProducts from "./Components/Home/MarqueeProduct/MarqueeProduct";
 import Branches from "./Components/Home/Branches/Branches";
 
 export default function Home() {

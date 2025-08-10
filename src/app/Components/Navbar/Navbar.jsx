@@ -8,36 +8,24 @@ import MobileNavLinks from "./ModileNavLinks/MobileNavLinks";
 import ToggleMenu from "./ToggleMenu/ToggleMenu";
 import CartModal from "@/app/shop/Components/CartModal/CartModal";
 import Loading from "@/app/loading";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
-  console.log(isCartModalOpen);
-  const [cartData, setCartData] = useState([]);
 
+  const [cartData, setCartData] = useState([]);
   const { data: session, status } = useSession();
   const user = session?.user;
 
   useEffect(() => {
-    const fetchCartItem = async () => {
-      try {
-        const res = await fetch("/api/cart");
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Something went wrong");
+    fetch("/api/cart")
+      .then(res => res.json())
+      .then((data) => setCartData(data));
+  }, [cartData]);
 
-        setCartData(data);
-      } catch (err) {
-        console.error("Fetch Error:", err.message);
-        toast.error("Failed to load cart.");
-      }
-    };
-
-    fetchCartItem();
-  }, []);
-
-  if(status === "loading") return <Loading/>
-
+  if (status === "loading") return <Loading />;
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
@@ -103,9 +91,7 @@ const Navbar = () => {
               >
                 <IoCartOutline />
                 <div className="absolute -top-1 -right-1 bg-black rounded-full h-4 w-4 flex justify-center items-center">
-                  <p className="text-[10px] text-white">
-                    {cartData.length}
-                  </p>
+                  <p className="text-[10px] text-white">{cartData.length}</p>
                 </div>
               </button>
               <CartModal
