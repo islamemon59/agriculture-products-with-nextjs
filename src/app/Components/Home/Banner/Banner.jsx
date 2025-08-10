@@ -45,8 +45,8 @@ const Banner = () => {
       <Swiper
         modules={[Navigation, Autoplay]}
         navigation={{
-          nextEl: ".swiper-button-next-custom",
-          prevEl: ".swiper-button-prev-custom",
+          nextEl: ".swiper-button",
+          prevEl: ".swiper-button",
         }}
         loop
         autoplay={{
@@ -84,10 +84,10 @@ const Banner = () => {
       </Swiper>
 
       {/* Navigation Buttons */}
-      <div className="swiper-button-prev-custom absolute top-1/2 left-0 md:left-2 transform -translate-y-1/2 z-10 cursor-pointer bg-green-500 hover:bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center">
+      <div className="swiper-button absolute top-1/2 left-0 md:left-2 transform -translate-y-1/2 z-10 cursor-pointer bg-green-500 hover:bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center">
         <IoArrowBack size={24} />
       </div>
-      <div className="swiper-button-next-custom absolute top-1/2 right-0 md:right-2 transform -translate-y-1/2 z-10 cursor-pointer bg-green-500 hover:bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center">
+      <div className="swiper-button absolute top-1/2 right-0 md:right-2 transform -translate-y-1/2 z-10 cursor-pointer bg-green-500 hover:bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center">
         <IoArrowForward size={24} />
       </div>
     </div>

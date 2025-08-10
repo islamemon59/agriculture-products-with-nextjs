@@ -4,6 +4,17 @@
 /* This CSS class provides styling for a rounded button with a hover animation.
   It translates the Tailwind classes into standard CSS properties.
 */
+.buttonStyles {
+  background-color: #22c55e;
+  color: white;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.5rem 1.5rem;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
 
 /*
   This CSS class builds on your existing styles, adding more sophisticated

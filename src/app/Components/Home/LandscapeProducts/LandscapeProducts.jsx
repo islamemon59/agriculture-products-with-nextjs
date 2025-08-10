@@ -8,6 +8,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import Link from "next/link";
 
 const products = [
   {
@@ -54,7 +55,7 @@ const LandscapeProducts = () => {
   return (
     <section className="max-w-7xl mx-auto px-4 py-12 relative">
       <h2 className="text-[38px] font-semibold text-gray-800 mb-8">
-        Agricultural Products
+        Landscape Products
       </h2>
 
       <Swiper
@@ -93,9 +94,9 @@ const LandscapeProducts = () => {
                 {product.price}
               </p>
               <div className="mt-auto">
-                <button className="my-button">
+                <Link href={"/shop"} className="buttonStyles">
                   Shop Now
-                </button>
+                </Link>
               </div>
             </div>
           </SwiperSlide>

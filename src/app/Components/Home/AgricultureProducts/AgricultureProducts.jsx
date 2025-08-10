@@ -1,11 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
+import Image from "next/image";
+
+// Simple button style for the "See more" link
+
 
 const products = [
   {
@@ -48,21 +52,20 @@ const products = [
 ];
 
 const AgricultureProduct = () => {
-  // Fix for Swiper navigation buttons in Next.js SSR
+  const [swiper, setSwiper] = useState(null);
+
   useEffect(() => {
-    const initSwiper = () => {
-      if (typeof window !== "undefined") {
-        const prevEl = document.querySelector(".swiper-button-prev-custom");
-        const nextEl = document.querySelector(".swiper-button-next-custom");
-        if (prevEl && nextEl) {
-          // Forces Swiper to re-init nav (if needed)
-          const event = new Event("swiperUpdate");
-          window.dispatchEvent(event);
-        }
+    if (swiper) {
+      const prevEl = document.querySelector(".swiper-button-prev-custom");
+      const nextEl = document.querySelector(".swiper-button-next-custom");
+      if (prevEl && nextEl) {
+        swiper.params.navigation.prevEl = prevEl;
+        swiper.params.navigation.nextEl = nextEl;
+        swiper.navigation.init();
+        swiper.navigation.update();
       }
-    };
-    initSwiper();
-  }, []);
+    }
+  }, [swiper]);
 
   return (
     <section className="max-w-7xl mx-auto py-8 px-4 relative">
@@ -75,9 +78,10 @@ const AgricultureProduct = () => {
         spaceBetween={20}
         slidesPerView={1}
         loop={true}
+        onSwiper={setSwiper}
         navigation={{
-          prevEl: ".swiper-button-prev",
-          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev-custom",
+          nextEl: ".swiper-button-next-custom",
         }}
         breakpoints={{
           640: { slidesPerView: 2, spaceBetween: 20 },
@@ -88,12 +92,15 @@ const AgricultureProduct = () => {
       >
         {products.map((product) => (
           <SwiperSlide key={product.id}>
-            <div className="bg-[#F2F4F6] p-4 rounded-lg shadow-md flex flex-col items-center justify-between h-full hover:shadow-lg transition-shadow duration-300">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-48 object-cover mb-4 rounded-md border border-gray-200"
-              />
+            <div className="bg-[#F2F4F6] p-4 rounded-lg shadow-md flex flex-col items-center justify-between hover:shadow-lg transition-shadow duration-300">
+              <div className="relative w-full h-48 mb-4">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover rounded-md border border-gray-200"
+                />
+              </div>
               <h3 className="text-lg font-semibold text-center text-[#1A1A1A] mb-2 mt-auto">
                 {product.name}
               </h3>
@@ -101,7 +108,7 @@ const AgricultureProduct = () => {
                 {product.price}
               </p>
               <div className="justify-end w-full">
-                <Link href={"/shop"} className="my-button">
+                <Link href={"/shop"} className="buttonStyles">
                   See more
                 </Link>
               </div>
@@ -109,8 +116,6 @@ const AgricultureProduct = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      {/* Navigation buttons */}
       <div
         className="swiper-button-prev-custom absolute top-[58%] sm:left-4 left-5 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg cursor-pointer z-10
         hover:bg-gray-100 transition-colors duration-300 transform -translate-x-1/2 sm:translate-x-0
