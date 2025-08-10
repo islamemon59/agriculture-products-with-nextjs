@@ -47,7 +47,7 @@ const OurCustomerSays = () => {
 
         <div className="flex flex-col lg:flex-row gap-8 items-stretch">
           {/* Left: Testimonial Content */}
-          <div className="flex-1 bg-gray-50 rounded-2xl p-11 shadow-lg flex flex-col justify-between">
+          <div className="flex-1 rounded-2xl p-11 shadow-lg flex flex-col justify-between">
             <img
               src="https://i.ibb.co/7J5kpw39/download-1.png"
               alt="logo"

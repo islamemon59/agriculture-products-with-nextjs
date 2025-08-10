@@ -91,8 +91,8 @@ const AgricultureProduct = () => {
         className="mySwiper"
       >
         {products.map((product) => (
-          <SwiperSlide key={product.id}>
-            <div className="bg-[#F2F4F6] p-4 rounded-lg shadow-md flex flex-col items-center justify-between hover:shadow-lg transition-shadow duration-300">
+          <SwiperSlide key={product.id} className="my-3">
+            <div className=" p-4 rounded-lg shadow-md flex flex-col items-center justify-between hover:shadow-lg transition-shadow duration-300">
               <div className="relative w-full h-48 mb-4">
                 <Image
                   src={product.image}

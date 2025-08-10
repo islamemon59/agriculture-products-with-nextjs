@@ -75,8 +75,8 @@ const LandscapeProducts = () => {
         className="mySwiper"
       >
         {products.map((product) => (
-          <SwiperSlide key={product.id}>
-            <div className="bg-[#F2F4F6] p-4 rounded-lg shadow-md flex flex-col h-full hover:shadow-lg transition">
+          <SwiperSlide key={product.id} className="my-3">
+            <div className="p-4 rounded-lg shadow-md flex flex-col h-full hover:shadow-lg transition">
               <div className="relative w-full h-48 mb-4 rounded-md border border-gray-200 overflow-hidden">
                 <Image
                   src={product.image}
