@@ -93,7 +93,7 @@ const LandscapeProducts = () => {
                 {product.price}
               </p>
               <div className="mt-auto">
-                <button className="bg-[#B0DD1D] hover:bg-lime-600 transition px-6 py-2 rounded-full text-sm font-medium text-[#1A1A1A]">
+                <button className="my-button">
                   Shop Now
                 </button>
               </div>

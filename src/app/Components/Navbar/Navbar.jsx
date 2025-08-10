@@ -22,9 +22,9 @@ const Navbar = () => {
 
   useEffect(() => {
     fetch("/api/cart")
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data) => setCartData(data));
-  }, [cartData]);
+  }, []);
 
   if (status === "loading") return <Loading />;
 

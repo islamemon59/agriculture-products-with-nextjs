@@ -25,9 +25,6 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
    fetchCartItem();
   }, [isOpen]);
 
-  const handleBuyNow = () => {
-    setIsCartModalOpen(false);
-  };
 
   const handleDeleteItem = async (id) => {
     try {
@@ -57,7 +54,6 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
     <ModalData
       cartData={cartData}
       setIsCartModalOpen={setIsCartModalOpen}
-      handleBuyNow={handleBuyNow}
       handleDeleteItem={handleDeleteItem}
     />
   );

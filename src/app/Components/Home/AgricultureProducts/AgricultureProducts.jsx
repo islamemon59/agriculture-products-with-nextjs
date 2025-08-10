@@ -101,7 +101,7 @@ const AgricultureProduct = () => {
                 {product.price}
               </p>
               <div className="justify-end w-full">
-                <Link href={"/shop"} className="bg-[#B0DD1D] hover:bg-lime-600 text-sm text-[#1A1A1A] font-medium py-3 px-7 rounded-full transition-colors duration-300">
+                <Link href={"/shop"} className="my-button">
                   See more
                 </Link>
               </div>

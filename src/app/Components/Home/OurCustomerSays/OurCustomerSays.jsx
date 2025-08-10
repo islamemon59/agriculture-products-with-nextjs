@@ -42,7 +42,7 @@ const OurCustomerSays = () => {
     <section className="bg-white py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
-          Why Customers Love <span className="text-blue-600">Us?</span>
+          Why Customers Love <span className="text-green-500">Us?</span>
         </h2>
 
         <div className="flex flex-col lg:flex-row gap-8 items-stretch">

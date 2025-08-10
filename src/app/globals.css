@@ -1,26 +1,91 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* This CSS class provides styling for a rounded button with a hover animation.
+  It translates the Tailwind classes into standard CSS properties.
+*/
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+  This CSS class builds on your existing styles, adding more sophisticated
+  animations for a more engaging user experience.
+*/
+
+/* Define a keyframes animation for a subtle glow effect */
+@keyframes button-glow {
+  0% {
+    box-shadow: 0 0 5px #16a34a, 0 0 10px #16a34a, 0 0 15px #16a34a;
+  }
+  50% {
+    box-shadow: 0 0 10px #16a34a, 0 0 20px #16a34a, 0 0 30px #16a34a;
+  }
+  100% {
+    box-shadow: 0 0 5px #16a34a, 0 0 10px #16a34a, 0 0 15px #16a34a;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.my-button {
+  /* Inherited styles from your original code */
+  margin-top: 3rem; /* mt-12 */
+  padding: 0.75rem 2rem; /* py-3 px-8 */
+  background-color: #22c55e; /* bg-green-500 */
+  color: white; /* text-white */
+  font-weight: 600; /* font-semibold */
+  border-radius: 9999px; /* rounded-full */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+  border: none;
+  cursor: pointer;
+  
+  /* Setting up for the new animation */
+  position: relative; /* Required for the pseudo-element */
+  z-index: 1; /* Ensures the text is on top of the glow */
+
+  /* More transitions for a smoother effect */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
+
+.my-button:hover {
+  background-color: #16a34a; /* green-600 */
+  transform: translateY(-2px); /* Lifts the button slightly */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Adds a more pronounced shadow on hover */
+}
+
+/* Adds a "press" effect when the button is clicked */
+.my-button:active {
+  transform: translateY(0);
+  background-color: #16a34a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Flattens the shadow to simulate pressing down */
+  transform: scale(0.98); /* Scales down the button slightly */
+}
+
+/* Adds a focus state for accessibility, crucial for keyboard navigation */
+.my-button:focus {
+  outline: 2px solid #16a34a;
+  outline-offset: 2px;
+}
+
+/*
+  The glowing animation is created using a pseudo-element (`::after`).
+  This allows the glow to sit "behind" the button without affecting its
+  dimensions or other box-shadows.
+*/
+.my-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; /* Pushes the pseudo-element behind the button */
+  border-radius: inherit; /* Inherits the parent's rounded corners */
+  opacity: 0; /* Initially invisible */
+  transition: opacity 0.3s ease; /* Smoothly fade the glow in and out */
+}
+
+.my-button:hover::after {
+  opacity: 1; /* Makes the glow visible on hover */
+  animation: button-glow 1.5s ease-in-out infinite; /* Applies the animation */
+}
+
+
+
+

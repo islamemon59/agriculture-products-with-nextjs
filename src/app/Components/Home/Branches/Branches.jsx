@@ -24,7 +24,7 @@ const Branches = () => {
     <section className="bg-white p-4 sm:p-8 rounded-2xl shadow-xl max-w-7xl mx-auto my-12 font-sans">
       {/* OUR BRANCHES Chip */}
       <div className="text-center mb-8">
-        <span className="bg-[#F2FDE8] text-[#4F812B] font-bold text-xs px-4 py-2 rounded-full">
+        <span className="bg-green-500 text-white font-bold text-xs px-4 py-2 rounded-full">
           OUR BRANCHES
         </span>
       </div>
@@ -36,7 +36,7 @@ const Branches = () => {
             key={branch.name}
             className={`text-center cursor-pointer p-2 rounded-lg transition-all duration-300 ${
               activeBranch === branch.name
-                ? "border-2 border-lime-400" // Active state
+                ? "border-2 border-green-500" // Active state
                 : "border-2 border-transparent" // Inactive state
             }`}
             onClick={() => setActiveBranch(branch.name)}
@@ -64,26 +64,26 @@ const Branches = () => {
             <input
               type="text"
               placeholder="Your Name"
-              className="w-full bg-[#1A314E] border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-lime-400 focus:outline-none transition"
+              className="w-full bg-[#1A314E] border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:outline-none transition"
             />
             <input
               type="email"
               placeholder="Email"
-              className="w-full bg-[#1A314E] border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-lime-400 focus:outline-none transition"
+              className="w-full bg-[#1A314E] border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:outline-none transition"
             />
             <input
               type="tel"
               placeholder="Phone *"
-              className="w-full bg-[#1A314E] border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-lime-400 focus:outline-none transition"
+              className="w-full bg-[#1A314E] border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:outline-none transition"
             />
             <textarea
               placeholder="Write message"
               rows="4"
-              className="w-full bg-[#1A314E] border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-lime-400 focus:outline-none transition"
+              className="w-full bg-[#1A314E] border-none rounded-lg p-4 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:outline-none transition"
             ></textarea>
             <button
               type="submit"
-              className="w-full bg-[#B4E50A] text-black font-bold py-4 rounded-lg hover:bg-lime-400 transition-colors duration-300"
+              className="w-full my-button"
             >
               Submit
             </button>

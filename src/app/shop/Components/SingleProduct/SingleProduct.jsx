@@ -158,7 +158,7 @@ const SingleProduct = ({
               {product.stock > 0 ? (
                 <button
                   onClick={handleAddToCart}
-                  className="w-full flex items-center justify-center gap-3 bg-green-600 text-white text-xl font-bold py-4 rounded-lg shadow-lg hover:bg-green-700 transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50"
+                  className="w-full my-button flex items-center justify-center gap-3 text-xl font-bold "
                 >
                   <FaCartPlus className="text-2xl" /> Add to Cart
                 </button>

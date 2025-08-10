@@ -3,11 +3,11 @@ import React, { useMemo } from "react";
 import Image from "next/image";
 import { FaTimes, FaTrash, FaShoppingCart, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
+import PaymentButton from "../../PaymentButton/PaymentButton";
 
 const ModalData = ({
   setIsCartModalOpen,
   handleDeleteItem,
-  handleBuyNow,
   cartData,
 }) => {
   // Memoize the total price calculation to avoid re-calculating on every render
@@ -124,19 +124,7 @@ const ModalData = ({
             </div>
 
             {/* Action Buttons */}
-            <button
-              onClick={handleBuyNow}
-              disabled={cartData.length === 0}
-              className={`w-full inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-lg shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2
-        ${
-          cartData.length === 0
-            ? "bg-gray-200 text-gray-500 cursor-not-allowed border border-gray-300" // Lighter disabled state
-            : "bg-gradient-to-r from-green-500 to-green-700 text-white hover:from-green-600 hover:to-green-800 focus:ring-green-500 transform hover:-translate-y-0.5" // Vibrant green for action, subtle lift
-        }`}
-            >
-              <FaShoppingCart className="text-xl" /> {/* Shopping cart icon */}
-              Proceed to Checkout
-            </button>
+            <PaymentButton cartData={cartData} />
             <Link
               onClick={() => setIsCartModalOpen(false)}
               href="/shop"
