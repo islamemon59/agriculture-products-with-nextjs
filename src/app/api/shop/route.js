@@ -5,14 +5,27 @@ import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request) {
   try {
-    const productsCollection = await dbConnect(
-      collectionObj.productsCollection
-    );
+    // ✅ Use request.nextUrl for search params
+    const searchParams = request.nextUrl.searchParams;
+    const search = searchParams.get("search") || "";
+    const sort = searchParams.get("sort") || "newest";
+
+    const productsCollection = await dbConnect(collectionObj.productsCollection);
+
+    // Build search filter
+    const query = search
+      ? { name: { $regex: search, $options: "i" } }
+      : {};
+
+    // ✅ Correct sort object
+    const sortOption = sort === "oldest" ? { createdAt: 1 } : { createdAt: -1 };
+
+    // ✅ Make sure createdAt is indexed and is a Date
     const products = await productsCollection
-      .find()
-      .sort({ createdAt: -1 })
+      .find(query)
+      .sort(sortOption)
       .toArray();
 
     return NextResponse.json(products);
