@@ -7,28 +7,36 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
   try {
-    // ✅ Use request.nextUrl for search params
     const searchParams = request.nextUrl.searchParams;
+    console.log("search log",searchParams);
     const search = searchParams.get("search") || "";
     const sort = searchParams.get("sort") || "newest";
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const limit = parseInt(searchParams.get("limit") || "8", 10);
+    const skip = (page - 1) * limit;
 
-    const productsCollection = await dbConnect(collectionObj.productsCollection);
+    const productsCollection = await dbConnect(
+      collectionObj.productsCollection
+    );
 
-    // Build search filter
-    const query = search
-      ? { name: { $regex: search, $options: "i" } }
-      : {};
+    // Filter query
+    const query = search ? { name: { $regex: search, $options: "i" } } : {};
 
-    // ✅ Correct sort object
+    // Sort query
     const sortOption = sort === "oldest" ? { createdAt: 1 } : { createdAt: -1 };
 
-    // ✅ Make sure createdAt is indexed and is a Date
+    // Count documents that match filter
+    const count = await productsCollection.countDocuments(query);
+
+    // Get paginated products
     const products = await productsCollection
       .find(query)
       .sort(sortOption)
+      .skip(skip)
+      .limit(limit)
       .toArray();
 
-    return NextResponse.json(products);
+    return NextResponse.json({ products, count });
   } catch (error) {
     console.error("Fetch error:", error);
     return NextResponse.json(
@@ -37,6 +45,7 @@ export async function GET(request) {
     );
   }
 }
+
 
 export async function POST(req) {
   const session = await getServerSession(authOptions);
