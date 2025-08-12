@@ -93,10 +93,6 @@ const Navbar = () => {
 
           {/* Right Side - Search, Cart, User */}
           <div className="flex items-center space-x-4 sm:space-x-6">
-            <button className="text-gray-600 dark:text-gray-300 text-2xl hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200">
-              <IoSearchOutline />
-            </button>
-
             <button
               onClick={() => setIsCartModalOpen(!isCartModalOpen)}
               className="text-gray-600 relative dark:text-gray-300 text-2xl hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200"
@@ -115,12 +111,11 @@ const Navbar = () => {
             
             {/* User Profile / Login */}
             {!user ? (
-              <button
-                onClick={() => {}} // Add login logic here
+              <Link href={"/login"}
                 className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-full transition-colors duration-300"
               >
                 Login
-              </button>
+              </Link>
             ) : (
               <div className="relative user-dropdown">
                 <button
