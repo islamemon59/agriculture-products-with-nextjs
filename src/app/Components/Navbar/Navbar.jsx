@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { IoSearchOutline, IoCartOutline } from "react-icons/io5";
+import { IoCartOutline } from "react-icons/io5";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import CartModal from "@/app/shop/Components/CartModal/CartModal";
@@ -40,34 +40,49 @@ const Navbar = () => {
     <nav className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 focus:outline-none transition-colors duration-200"
-            >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+          {/* Left side - Logo & Mobile Menu Toggle */}
+          <div className="flex items-center gap-4">
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <Image
+                src="https://i.ibb.co/4ZrmrCn8/Frame-5.png"
+                alt="Logo"
+                width={140}
+                height={40}
+                priority
+                className="w-auto h-8 sm:h-10 object-contain"
+              />
+            </Link>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 focus:outline-none transition-colors duration-200"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d={
-                    isMenuOpen
-                      ? "M6 18L18 6M6 6l12 12"
-                      : "M4 6h16M4 12h16M4 18h16"
-                  }
-                />
-              </svg>
-            </button>
+                <svg
+                  className="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d={
+                      isMenuOpen
+                        ? "M6 18L18 6M6 6l12 12"
+                        : "M4 6h16M4 12h16M4 18h16"
+                    }
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
 
-          {/* Left navlinks for desktop */}
+          {/* Desktop navlinks */}
           <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
             {navLinks.map((link) => (
               <Link
@@ -105,7 +120,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Right Side - Search, Cart, User */}
+          {/* Right Side - Cart & User */}
           <div className="flex items-center space-x-4 sm:space-x-6">
             <button
               onClick={() => setIsCartModalOpen(!isCartModalOpen)}
@@ -125,11 +140,9 @@ const Navbar = () => {
               userEmail={user?.email}
             />
 
-            {/* User Profile / Login */}
+            {/* User Login/Profile */}
             {!user ? (
-
-              <LoginBtn/>
-
+              <LoginBtn />
             ) : (
               <div className="relative user-dropdown">
                 <button

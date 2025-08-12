@@ -8,6 +8,13 @@ import WhyUs from "./Components/Home/WhyUs/WhyUs";
 import MarqueeProducts from "./Components/Home/MarqueeProduct/MarqueeProduct";
 import Branches from "./Components/Home/Branches/Branches";
 
+// app/about/page.js
+export const metadata = {
+  title: "Home",
+  description: "This is home page",
+};
+
+
 export default function Home() {
   return (
     <div>

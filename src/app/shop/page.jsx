@@ -2,6 +2,11 @@ import SearchSortBar from "./Components/SearchSortBar/SearchSortBar";
 import ShopCard from "./Components/ShopCard/ShopCard";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Shop Products",
+  description: "There are all shop products here",
+};
+
 const Shop = async ({ searchParams }) => {
   const search = searchParams?.search || "";
   const page = parseInt(searchParams?.page || "1", 10);

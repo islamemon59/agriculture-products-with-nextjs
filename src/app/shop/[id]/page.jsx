@@ -12,6 +12,11 @@ import { useParams } from "next/navigation";
 import SingleProduct from "../Components/SingleProduct/SingleProduct";
 import Loading from "@/app/loading";
 
+export const metadata = {
+  title: "Single Product",
+  description: "This page of single product",
+};
+
 const ProductDetails = () => {
   const params = useParams();
   const id = params?.id;

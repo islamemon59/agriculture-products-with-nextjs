@@ -4,12 +4,11 @@ import Image from "next/image";
 import { FaTimes, FaTrash, FaShoppingCart, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 import PaymentButton from "../../PaymentButton/PaymentButton";
+import ModalCloseButton from "./Components/ModalCloseButton/ModalCloseButton";
+import ProductDeleteButton from "./Components/ProductDeleteButton/ProductDeleteButton";
+import ContinueShoppingButton from "./Components/ContinueShoppingButton/ContinueShoppingButton";
 
-const ModalData = ({
-  setIsCartModalOpen,
-  handleDeleteItem,
-  cartData,
-}) => {
+const ModalData = ({ setIsCartModalOpen, handleDeleteItem, cartData }) => {
   // Memoize the total price calculation to avoid re-calculating on every render
   const subtotal = useMemo(() => {
     return cartData?.reduce((acc, item) => {
@@ -37,13 +36,7 @@ const ModalData = ({
             <FaShoppingCart className="h-8 w-8 text-green-600" />
             Your Shopping Cart
           </h2>
-          <button
-            onClick={() => setIsCartModalOpen(false)}
-            className="text-gray-500 hover:text-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-full"
-            aria-label="Close modal"
-          >
-            <FaTimes className="text-2xl" />
-          </button>
+          <ModalCloseButton setIsCartModalOpen={setIsCartModalOpen} />
         </div>
 
         {/* Modal Content */}
@@ -88,13 +81,10 @@ const ModalData = ({
                       </p>
                     </div>
                     {/* Remove Button */}
-                    <button
-                      onClick={() => handleDeleteItem(item._id)}
-                      className="text-red-500 hover:text-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-300 rounded-full p-2"
-                      aria-label={`Remove ${item.product_name} from cart`}
-                    >
-                      <FaTrash className="text-xl" />
-                    </button>
+                    <ProductDeleteButton
+                      handleDeleteItem={handleDeleteItem}
+                      item={item}
+                    />
                   </div>
                 </div>
               ))
@@ -125,15 +115,7 @@ const ModalData = ({
 
             {/* Action Buttons */}
             <PaymentButton cartData={cartData} />
-            <Link
-              onClick={() => setIsCartModalOpen(false)}
-              href="/shop"
-              className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-lg shadow-sm border border-blue-500 text-blue-700 bg-white hover:bg-blue-50 hover:border-blue-600 hover:text-blue-800 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:-translate-y-0.5" // Outline style for secondary action
-            >
-              <FaArrowRight className="text-xl" />{" "}
-              {/* Arrow icon for navigation */}
-              Continue Shopping
-            </Link>
+            <ContinueShoppingButton setIsCartModalOpen={setIsCartModalOpen} />
           </div>
         </div>
       </div>
