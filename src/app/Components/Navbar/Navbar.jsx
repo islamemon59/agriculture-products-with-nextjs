@@ -7,6 +7,7 @@ import CartModal from "@/app/shop/Components/CartModal/CartModal";
 import Loading from "@/app/loading";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import LoginBtn from "./LoginBtn/LoginBtn";
 
 // Defining the navigation links
 const navLinks = [
@@ -33,7 +34,6 @@ const Navbar = () => {
       .then((data) => setCartData(data));
   }, []);
 
-
   if (status === "loading") return <Loading />;
 
   return (
@@ -57,7 +57,11 @@ const Navbar = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                  d={
+                    isMenuOpen
+                      ? "M6 18L18 6M6 6l12 12"
+                      : "M4 6h16M4 12h16M4 18h16"
+                  }
                 />
               </svg>
             </button>
@@ -73,19 +77,29 @@ const Navbar = () => {
                   font-medium p-2 px-4 rounded-full
                   relative overflow-hidden group
                   transition-all duration-300 ease-in-out
-                  ${currentPathname === link.href
-                    ? 'text-white'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-white dark:hover:text-white'
+                  ${
+                    currentPathname === link.href
+                      ? "text-white"
+                      : "text-gray-600 dark:text-gray-300 hover:text-white dark:hover:text-white"
                   }
-                  ${currentPathname !== link.href && 'hover:bg-green-500 dark:hover:bg-gray-800'}
+                  ${
+                    currentPathname !== link.href &&
+                    "hover:bg-green-500 dark:hover:bg-gray-800"
+                  }
                 `}
               >
-                <span className={`
+                <span
+                  className={`
                   absolute inset-0 bg-green-500
                   transform transition-transform duration-300 ease-in-out
                   -z-10
-                  ${currentPathname === link.href ? 'translate-x-0' : 'translate-x-full group-hover:translate-x-0'}
-                `} />
+                  ${
+                    currentPathname === link.href
+                      ? "translate-x-0"
+                      : "translate-x-full group-hover:translate-x-0"
+                  }
+                `}
+                />
                 {link.name}
               </Link>
             ))}
@@ -99,7 +113,9 @@ const Navbar = () => {
             >
               <IoCartOutline />
               <div className="absolute -top-1 -right-1 bg-green-500 rounded-full h-4 w-4 flex justify-center items-center">
-                <p className="text-[10px] text-white font-bold">{cartData.length}</p>
+                <p className="text-[10px] text-white font-bold">
+                  {cartData.length}
+                </p>
               </div>
             </button>
 
@@ -108,14 +124,12 @@ const Navbar = () => {
               setIsCartModalOpen={setIsCartModalOpen}
               userEmail={user?.email}
             />
-            
+
             {/* User Profile / Login */}
             {!user ? (
-              <Link href={"/login"}
-                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-full transition-colors duration-300"
-              >
-                Login
-              </Link>
+
+              <LoginBtn/>
+
             ) : (
               <div className="relative user-dropdown">
                 <button
@@ -123,7 +137,10 @@ const Navbar = () => {
                   className="flex items-center focus:outline-none user-avatar"
                 >
                   <Image
-                    src={user?.image || "https://img.icons8.com/plasticine/100/user.png"}
+                    src={
+                      user?.image ||
+                      "https://img.icons8.com/plasticine/100/user.png"
+                    }
                     alt="User Avatar"
                     width={40}
                     height={40}
@@ -165,9 +182,10 @@ const Navbar = () => {
                 href={link.href}
                 className={`
                   block px-3 py-2 rounded-md text-base font-medium transition-all duration-200
-                  ${currentPathname === link.href 
-                    ? 'bg-green-500 text-white font-bold' 
-                    : 'text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-green-500 dark:hover:text-green-400'
+                  ${
+                    currentPathname === link.href
+                      ? "bg-green-500 text-white font-bold"
+                      : "text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-green-500 dark:hover:text-green-400"
                   }
                 `}
                 onClick={() => setIsMenuOpen(false)}

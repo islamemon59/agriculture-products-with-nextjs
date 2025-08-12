@@ -6,7 +6,7 @@ const LoginBtn = ({ setIsMenuOpen }) => {
     <Link
       href="/login"
       onClick={() => setIsMenuOpen(false)}
-      className="text-center dark:text-white text-black text-sm font-bold"
+      className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-full transition-colors duration-300"
     >
       Login
     </Link>
