@@ -40,8 +40,10 @@ const PaymentButton = ({ cartData }) => {
       const data = await res.json();
       console.log(data);
 
-      if (data?.GatewayPageURL) {
-        window.location.href = data.GatewayPageURL; // redirect to payment page
+      if (data?.gatewayUrl
+) {
+        window.location.href = data.gatewayUrl
+; // redirect to payment page
       } else {
         toast.error("Failed to initiate payment");
       }

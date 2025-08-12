@@ -4,7 +4,8 @@ const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
 export const collectionObj = {
   userCollection: "userData",
   productsCollection: "products",
-  cartDataCollection: "cartData"
+  cartDataCollection: "cartData",
+  paymentCollection: "paymentData"
 };
 
 // Use a global variable to store the MongoDB client promise. This prevents creating a new connection
