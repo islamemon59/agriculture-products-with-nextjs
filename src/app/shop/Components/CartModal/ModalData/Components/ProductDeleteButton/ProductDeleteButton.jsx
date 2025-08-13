@@ -1,11 +1,10 @@
-"use client"
+"use client";
 import React from "react";
 import toast from "react-hot-toast";
 import { FaTrash } from "react-icons/fa";
 
-const ProductDeleteButton = ({ item, setCartData }) => {
-
-    const handleDeleteItem = async (id) => {
+const ProductDeleteButton = ({ item }) => {
+  const handleDeleteItem = async (id) => {
     try {
       const res = await fetch(`/api/shop/${id}`, {
         method: "DELETE",
@@ -19,7 +18,6 @@ const ProductDeleteButton = ({ item, setCartData }) => {
 
       if (data.message) {
         toast.success("Item removed from cart");
-        setCartData((prev) => prev.filter((item) => item._id !== id));
       }
     } catch (error) {
       console.error("Delete error:", error);
