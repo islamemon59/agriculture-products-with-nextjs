@@ -1,7 +1,9 @@
+"use client"
 import React from "react";
+import toast from "react-hot-toast";
 import { FaTrash } from "react-icons/fa";
 
-const ProductDeleteButton = ({ item }) => {
+const ProductDeleteButton = ({ item, setCartData }) => {
 
     const handleDeleteItem = async (id) => {
     try {

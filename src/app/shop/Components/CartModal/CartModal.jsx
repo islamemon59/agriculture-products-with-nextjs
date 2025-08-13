@@ -32,6 +32,7 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
     <ModalData
       cartData={cartData}
       setIsCartModalOpen={setIsCartModalOpen}
+      setCartData={setCartData}
     />
   );
 };

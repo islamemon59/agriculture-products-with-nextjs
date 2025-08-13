@@ -1,5 +1,4 @@
 "use client";
-
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
