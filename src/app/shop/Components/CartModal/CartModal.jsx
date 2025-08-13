@@ -26,35 +26,12 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
   }, [isOpen]);
 
 
-  const handleDeleteItem = async (id) => {
-    try {
-      const res = await fetch(`/api/shop/${id}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to delete item");
-      }
-
-      const data = await res.json();
-
-      if (data.message) {
-        toast.success("Item removed from cart");
-        setCartData((prev) => prev.filter((item) => item._id !== id));
-      }
-    } catch (error) {
-      console.error("Delete error:", error);
-      toast.error("Something went wrong while deleting.");
-    }
-  };
-
   if (!isOpen) return null;
 
   return (
     <ModalData
       cartData={cartData}
       setIsCartModalOpen={setIsCartModalOpen}
-      handleDeleteItem={handleDeleteItem}
     />
   );
 };

@@ -1,14 +1,13 @@
 "use client";
 import React, { useMemo } from "react";
 import Image from "next/image";
-import { FaTimes, FaTrash, FaShoppingCart, FaArrowRight } from "react-icons/fa";
-import Link from "next/link";
+import { FaShoppingCart } from "react-icons/fa";
 import PaymentButton from "../../PaymentButton/PaymentButton";
 import ModalCloseButton from "./Components/ModalCloseButton/ModalCloseButton";
 import ProductDeleteButton from "./Components/ProductDeleteButton/ProductDeleteButton";
 import ContinueShoppingButton from "./Components/ContinueShoppingButton/ContinueShoppingButton";
 
-const ModalData = ({ setIsCartModalOpen, handleDeleteItem, cartData }) => {
+const ModalData = ({ setIsCartModalOpen, cartData }) => {
   // Memoize the total price calculation to avoid re-calculating on every render
   const subtotal = useMemo(() => {
     return cartData?.reduce((acc, item) => {
@@ -81,10 +80,7 @@ const ModalData = ({ setIsCartModalOpen, handleDeleteItem, cartData }) => {
                       </p>
                     </div>
                     {/* Remove Button */}
-                    <ProductDeleteButton
-                      handleDeleteItem={handleDeleteItem}
-                      item={item}
-                    />
+                    <ProductDeleteButton item={item} />
                   </div>
                 </div>
               ))
