@@ -1,12 +1,21 @@
+"use client";
+import { useEffect, useState } from "react";
 import ModalData from "./ModalData/ModalData";
 
-const CartModal = async ({ isOpen, setIsCartModalOpen }) => {
-  if (!isOpen) return null;
+const CartModal = ({ isOpen, setIsCartModalOpen }) => {
+  const [cartData, setCartData] = useState([]);
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/cart`, {
-    cache: "no-store", // ensures fresh data
-  });
-  const cartData = await res.json();
+  useEffect(() => {
+    if (isOpen) {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/cart`, {
+        cache: "no-store",
+      })
+        .then((res) => res.json())
+        .then((data) => setCartData(data));
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
 
   return (
     <ModalData
