@@ -20,6 +20,7 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
   return (
     <ModalData
       cartData={cartData}
+      setCartData={setCartData}
       setIsCartModalOpen={setIsCartModalOpen}
     />
   );

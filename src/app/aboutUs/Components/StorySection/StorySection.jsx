@@ -5,17 +5,17 @@ const StorySection = () => {
     <section className="mb-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white p-8 md:p-12 rounded-3xl shadow-xl">
         <div>
-          <h2 className="text-4xl font-bold text-stone-800 mb-6">
+          <h2 className="text-4xl font-bold text-[#1A1A1A] mb-6">
             Cultivating a Legacy of Goodness
           </h2>
-          <p className="text-stone-700 leading-relaxed mb-4">
+          <p className="text-gray-600 leading-relaxed mb-4">
             For generations, our family has been tending to these fields. We
             started with a simple belief: that by working in harmony with
             nature, we could produce food that was not only delicious but also
             deeply nourishing. Our commitment to sustainable agriculture isn't a
             trend; it's a way of life passed down from our grandparents.
           </p>
-          <p className="text-stone-700 leading-relaxed">
+          <p className="text-gray-600 leading-relaxed">
             We believe in a future where healthy food is accessible to everyone.
             Every seed we plant, every harvest we gather, is a step towards that
             future. We're proud to share our journey with you and invite you to

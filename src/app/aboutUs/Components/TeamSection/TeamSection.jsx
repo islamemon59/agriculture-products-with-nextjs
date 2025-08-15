@@ -4,7 +4,7 @@ import TeamMemberCard from '../TeamMemberCard/TeamMemberCard';
 const TeamSection = () => {
     return (
     <section className="mb-16">
-      <h2 className="text-4xl font-bold text-center text-stone-800 mb-12">
+      <h2 className="text-4xl font-bold text-center text-[#1A1A1A] mb-12">
         Meet Our Team
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

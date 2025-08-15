@@ -5,7 +5,7 @@ import TeamSection from "./Components/TeamSection/TeamSection";
 import ValuesSection from "./Components/ValuesSection/ValuesSection";
 
 export default function App() {
-  const brandName = "Agro Product";
+  const brandName = "JF Product";
   return (
     <div className="bg-neutral-100 min-h-screen font-inter">
       <main className="container mx-auto p-8 lg:p-16">

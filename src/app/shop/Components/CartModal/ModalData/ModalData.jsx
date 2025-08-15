@@ -6,7 +6,7 @@ import ProductDeleteButton from "./Components/ProductDeleteButton/ProductDeleteB
 import ContinueShoppingButton from "./Components/ContinueShoppingButton/ContinueShoppingButton";
 import OrderPriceSummary from "./Components/OrderPriceSummary/OrderPriceSummary";
 
-const ModalData = ({ setIsCartModalOpen, cartData }) => {
+const ModalData = ({ setIsCartModalOpen, cartData, setCartData }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/60 bg-opacity-75 px-4">
       <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-4xl relative transform transition-all duration-300 scale-100 opacity-100 font-sans">
@@ -61,7 +61,7 @@ const ModalData = ({ setIsCartModalOpen, cartData }) => {
                       </p>
                     </div>
                     {/* Remove Button */}
-                    <ProductDeleteButton item={item} />
+                    <ProductDeleteButton item={item} cartData={cartData} setCartData={setCartData} />
                   </div>
                 </div>
               ))

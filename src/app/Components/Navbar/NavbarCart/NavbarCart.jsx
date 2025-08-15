@@ -13,7 +13,7 @@ const NavbarCart = () => {
   const user = session?.user;
   // Fetch cart data when the component mounts
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/cart`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/cart`)
       .then((res) => res.json())
       .then((data) => setCartData(data));
   }, []);

@@ -3,7 +3,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { FaTrash } from "react-icons/fa";
 
-const ProductDeleteButton = ({ item }) => {
+const ProductDeleteButton = ({ item, cartData, setCartData }) => {
   const handleDeleteItem = async (id) => {
     try {
       const res = await fetch(`/api/shop/${id}`, {
@@ -18,6 +18,10 @@ const ProductDeleteButton = ({ item }) => {
 
       if (data.message) {
         toast.success("Item removed from cart");
+
+        // ✅ Remove the item from cartData immediately
+        const updatedCart = cartData.filter((cartItem) => cartItem._id !== id);
+        setCartData(updatedCart);
       }
     } catch (error) {
       console.error("Delete error:", error);

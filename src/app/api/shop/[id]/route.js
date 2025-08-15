@@ -46,7 +46,9 @@ export async function DELETE(req, { params }) {
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    const cartDataCollection = await dbConnect(collectionObj.cartDataCollection);
+    const cartDataCollection = await dbConnect(
+      collectionObj.cartDataCollection
+    );
 
     // Step 1: Find the cart item to get product_id and quantity
     const cartItem = await cartDataCollection.findOne({
@@ -62,7 +64,10 @@ export async function DELETE(req, { params }) {
     }
 
     // Step 2: Delete the cart item
-    const result = await cartDataCollection.deleteOne({ _id: new ObjectId(id), email: userEmail });
+    const result = await cartDataCollection.deleteOne({
+      _id: new ObjectId(id),
+      email: userEmail,
+    });
 
     if (result.deletedCount === 0) {
       return NextResponse.json(
@@ -71,10 +76,7 @@ export async function DELETE(req, { params }) {
       );
     }
 
-    return NextResponse.json(
-      { message: "Item deleted" },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: "Item deleted" }, { status: 200 });
   } catch (error) {
     console.error("DELETE /api/cart/[id] error:", error);
     return NextResponse.json(
