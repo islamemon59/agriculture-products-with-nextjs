@@ -1,11 +1,18 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import Link from "next/link";
+import React, { useState } from "react";
 
 const MobileMenu = () => {
-      const [isMenuOpen, setIsMenuOpen] = useState(false);
-    return (
-        <div>
-                  {isMenuOpen && (
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Shop", href: "/shop" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "Contact", href: "/contact" },
+  ];
+  return (
+    <div>
+      {isMenuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900 absolute w-full top-16 z-40">
           <div className="px-4 pt-2 pb-4 space-y-1 w-full transition-transform duration-300 transform animate-slide-down">
             {navLinks.map((link) => (
@@ -28,8 +35,8 @@ const MobileMenu = () => {
           </div>
         </div>
       )}
-        </div>
-    );
+    </div>
+  );
 };
 
 export default MobileMenu;
