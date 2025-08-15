@@ -14,12 +14,12 @@ const SingleProduct = ({
   return (
     <div className="min-h-screen bg-gray-50 pb-12">
       {/* Banner Section */}
-      <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden bg-gradient-to-r from-green-500 to-blue-500 shadow-md">
+      <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden bg-black shadow-md">
         <Image
-          src={product?.image}
+          src={`https://images.unsplash.com/photo-1599320092708-8a9dde49fc2c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
           alt={`Banner for ${product?.name}`}
           fill
-          className="object-cover object-center opacity-70"
+          className="object-cover object-center opacity-60"
           priority
         />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-4">

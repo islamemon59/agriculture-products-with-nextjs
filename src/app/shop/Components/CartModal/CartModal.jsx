@@ -7,7 +7,7 @@ const CartModal = ({ isOpen, setIsCartModalOpen }) => {
 
   useEffect(() => {
     if (isOpen) {
-      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/cart`, {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/cart`, {
         cache: "no-store",
       })
         .then((res) => res.json())

@@ -30,9 +30,11 @@ export async function POST(req) {
         { transactionId: tran_id },
         { $set: { status: "paid", validatedAt: new Date() } }
       );
-      return NextResponse.redirect(new URL("/", "http://localhost:3000/"));
+      console.log("payment successful");
+      console.log(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/shop`);
     } else {
-      return NextResponse.redirect("http://localhost:3000/payment-fail");
+      return NextResponse.redirect("/");
     }
   } catch (error) {
     console.error("Validation error:", error);
