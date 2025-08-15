@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { ObjectId } from "mongodb";
 import { collectionObj, dbConnect } from "@/lib/dbConnect";
-import { revalidatePath } from "next/cache";
 
 export async function GET(req, { params }) {
   const session = await getServerSession(authOptions);
@@ -75,7 +74,6 @@ export async function DELETE(req, { params }) {
         { status: 500 }
       );
     }
-
     return NextResponse.json({ message: "Item deleted" }, { status: 200 });
   } catch (error) {
     console.error("DELETE /api/cart/[id] error:", error);

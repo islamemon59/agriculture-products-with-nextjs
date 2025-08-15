@@ -16,7 +16,7 @@ const SingleProduct = ({
       {/* Banner Section */}
       <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden bg-black shadow-md">
         <Image
-          src={`https://images.unsplash.com/photo-1599320092708-8a9dde49fc2c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
+          src={mainImage}
           alt={`Banner for ${product?.name}`}
           fill
           className="object-cover object-center opacity-60"
