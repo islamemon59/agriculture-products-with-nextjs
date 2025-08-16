@@ -7,6 +7,7 @@ const MobileNavLinks = () => {
     { to: "/shop", label: "Shop" },
     { to: "/blogs", label: "Blogs" },
     { to: "/contact", label: "Contact" },
+    { to: "/aboutUs", label: "About Us" },
   ];
   return (
     <div className="flex items-center justify-center">

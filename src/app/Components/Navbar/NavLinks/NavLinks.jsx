@@ -1,13 +1,14 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react"; // ✅ import next-auth
 import React, { useEffect, useState } from "react";
 
 const NavLinks = ({ link }) => {
   const pathname = usePathname();
   const [currentPathname, setCurrentPathname] = useState("");
+  const { data: session } = useSession(); // ✅ get session
 
-  // Prevents "NextRouter not mounted" error by waiting for mount
   useEffect(() => {
     if (pathname) {
       setCurrentPathname(pathname);
@@ -15,6 +16,11 @@ const NavLinks = ({ link }) => {
   }, [pathname]);
 
   if (!currentPathname) return null; // Avoid rendering until mounted
+
+  // 🚫 Hide shop link if not logged in
+  if (link.href === "/shop" && !session) {
+    return null;
+  }
 
   return (
     <Link

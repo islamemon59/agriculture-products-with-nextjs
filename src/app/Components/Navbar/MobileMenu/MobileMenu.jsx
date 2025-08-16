@@ -2,9 +2,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react"; // ✅ for login check
 
 const MobileMenu = ({ isMenuOpen, setIsMenuOpen }) => {
   const pathname = usePathname();
+  const { data: session } = useSession(); // ✅ check login
   const [currentPathname, setCurrentPathname] = useState("");
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -14,12 +16,11 @@ const MobileMenu = ({ isMenuOpen, setIsMenuOpen }) => {
     }
   }, [pathname]);
 
-  // Handle the animation state
+  // Handle animation state
   useEffect(() => {
     if (isMenuOpen) {
       setIsAnimating(true);
     } else {
-      // Delay setting isAnimating to false to allow the exit transition to complete
       const timer = setTimeout(() => setIsAnimating(false), 300);
       return () => clearTimeout(timer);
     }
@@ -27,11 +28,13 @@ const MobileMenu = ({ isMenuOpen, setIsMenuOpen }) => {
 
   if (!currentPathname) return null;
 
+  // ✅ Nav links (conditionally include Shop only if logged in)
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Shop", href: "/shop" },
+    ...(session ? [{ name: "Shop", href: "/shop" }] : []), // show only if logged in
     { name: "Blogs", href: "/blogs" },
     { name: "Contact", href: "/contact" },
+    { name: "About Us", href: "/aboutUs" },
   ];
 
   return (
