@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from "react";
+import MobileMenu from "../MobileMenu/MobileMenu";
 
 const MobileMenuButton = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,6 +28,7 @@ const MobileMenuButton = () => {
             />
           </svg>
         </button>
+        <MobileMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       </div>
     </div>
   );

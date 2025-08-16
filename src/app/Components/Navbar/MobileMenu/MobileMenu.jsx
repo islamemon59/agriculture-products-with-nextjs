@@ -1,40 +1,69 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-const MobileMenu = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const MobileMenu = ({ isMenuOpen, setIsMenuOpen }) => {
+  const pathname = usePathname();
+  const [currentPathname, setCurrentPathname] = useState("");
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    if (pathname) {
+      setCurrentPathname(pathname);
+    }
+  }, [pathname]);
+
+  // Handle the animation state
+  useEffect(() => {
+    if (isMenuOpen) {
+      setIsAnimating(true);
+    } else {
+      // Delay setting isAnimating to false to allow the exit transition to complete
+      const timer = setTimeout(() => setIsAnimating(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isMenuOpen]);
+
+  if (!currentPathname) return null;
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/shop" },
     { name: "Blogs", href: "/blogs" },
     { name: "Contact", href: "/contact" },
   ];
+
   return (
-    <div>
-      {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 absolute w-full top-16 z-40">
-          <div className="px-4 pt-2 pb-4 space-y-1 w-full transition-transform duration-300 transform animate-slide-down">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`
-                  block px-3 py-2 rounded-md text-base font-medium transition-all duration-200
-                  ${
-                    currentPathname === link.href
-                      ? "bg-green-500 text-white font-bold"
-                      : "text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-green-500 dark:hover:text-green-400"
-                  }
-                `}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+    <div
+      className={`
+        md:hidden bg-white dark:bg-gray-900 absolute w-full left-0 top-16 z-40 shadow-2xl rounded-2xl
+        transition-all duration-300 ease-in-out
+        ${isMenuOpen ? "block" : "hidden"}
+        ${
+          isAnimating ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+        }
+      `}
+    >
+      <div className="px-4 pt-2 pb-4 space-y-1 w-full">
+        {navLinks.map((link) => (
+          <Link
+            key={link.name}
+            href={link.href}
+            className={`
+              block px-3 py-2 rounded-md text-base font-medium transition-all duration-200
+              ${
+                currentPathname === link.href
+                  ? "bg-green-500 text-white font-bold"
+                  : "text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-green-500 dark:hover:text-green-400"
+              }
+            `}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            {link.name}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
