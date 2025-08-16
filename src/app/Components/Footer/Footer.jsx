@@ -1,6 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaGithub,
+  FaLinkedin,
+
+} from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -28,9 +33,7 @@ const Footer = () => {
                   Yes, subscribe me to your newsletter.
                 </label>
               </div>
-              <button className="w-full my-button">
-                Join Now
-              </button>
+              <button className="w-full my-button">Join Now</button>
             </div>
           </div>
           <div>
@@ -150,22 +153,22 @@ const Footer = () => {
         </div>
         <div className="flex justify-center md:justify-end mt-6 space-x-3">
           <Link
-            href="#"
+            href="https://www.facebook.com/n.bi.ta.554015"
             className="text-gray-400 hover:text-white transition duration-300"
           >
             <FaFacebookF size={20} />
           </Link>
           <Link
-            href="#"
+            href="https://www.linkedin.com/in/emonislam59"
             className="text-gray-400 hover:text-white transition duration-300"
           >
-            <FaInstagram size={20} />
+            <FaLinkedin size={20} />
           </Link>
           <Link
-            href="#"
+            href="https://github.com/islamemon59"
             className="text-gray-400 hover:text-white transition duration-300"
           >
-            <FaYoutube size={20} />
+            <FaGithub size={20} />
           </Link>
         </div>
       </div>

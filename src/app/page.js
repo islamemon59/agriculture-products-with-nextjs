@@ -7,13 +7,13 @@ import OurCustomerSays from "./Components/Home/OurCustomerSays/OurCustomerSays";
 import WhyUs from "./Components/Home/WhyUs/WhyUs";
 import MarqueeProducts from "./Components/Home/MarqueeProduct/MarqueeProduct";
 import Branches from "./Components/Home/Branches/Branches";
+import ScrollToTopButton from "./Components/Home/ScrollToTopButton/ScrollToTopButton";
 
 // app/about/page.js
 export const metadata = {
   title: "Home",
   description: "This is home page",
 };
-
 
 export default function Home() {
   return (
@@ -22,25 +22,28 @@ export default function Home() {
         <Banner />
       </section>
       <section>
-        <AgricultureProduct/>
+        <AgricultureProduct />
       </section>
       <section>
-        <LandscapeProducts/>
+        <LandscapeProducts />
       </section>
       <section>
-        <TrustedCustomer/>
+        <TrustedCustomer />
       </section>
       <section>
-        <OurCustomerSays/>
+        <OurCustomerSays />
       </section>
       <section>
-        <WhyUs/>
+        <WhyUs />
       </section>
       <section>
-        <MarqueeProducts/>
+        <MarqueeProducts />
       </section>
       <section>
-        <Branches/>
+        <Branches />
+      </section>
+      <section>
+        <ScrollToTopButton />
       </section>
     </div>
   );

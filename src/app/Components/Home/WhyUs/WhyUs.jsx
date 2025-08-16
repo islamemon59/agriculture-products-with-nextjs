@@ -14,7 +14,7 @@ const WhyUsSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Card 1: Unmatched Durability */}
-          <div className="relative group p-8 rounded-lg hover:text-white shadow-lg bg-gradient-to-br from-green-50 to-green-100 transition-all duration-300 hover:-translate-y-2 group hover:from-green-500 hover:to-green-600">
+          <div className="relative group p-8 rounded-lg hover:text-white shadow-lg bg-white transition-all duration-300 hover:-translate-y-2 group hover:bg-green-500">
             <div className="flex items-center justify-center w-16 h-16 rounded-full border-2 border-dashed border-gray-400 dark:border-gray-500 mx-auto mb-4 group-hover:border-gray-200">
               <FaRegCheckCircle
                 size={32}
@@ -34,7 +34,7 @@ const WhyUsSection = () => {
           </div>
 
           {/* Card 2: Customer-Centric Approach */}
-          <div className="relative group p-8 rounded-lg hover:text-white shadow-lg bg-gradient-to-br from-green-50 to-green-100 transition-all duration-300 hover:-translate-y-2 group hover:from-green-500 hover:to-green-600">
+          <div className="relative group p-8 rounded-lg hover:text-white shadow-lg bg-white transition-all duration-300 hover:-translate-y-2 group hover:bg-green-500">
             <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4">
               <Image
                 src="https://i.ibb.co/ymsctprx/Frame-3.png"
@@ -56,7 +56,7 @@ const WhyUsSection = () => {
           </div>
 
           {/* Card 3: Innovative and Diverse Product Range */}
-          <div className="relative group p-8 rounded-lg hover:text-white shadow-lg bg-gradient-to-br from-green-50 to-green-100 transition-all duration-300 hover:-translate-y-2 group hover:from-green-500 hover:to-green-600">
+          <div className="relative group p-8 rounded-lg hover:text-white shadow-lg bg-white transition-all duration-300 hover:-translate-y-2 group hover:bg-green-500">
             <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4">
               <Image
                 src="https://i.ibb.co/39mWHLvD/Frame-4.png"
