@@ -1,12 +1,12 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
 
 const UserLoginProfile = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const { data: session, status } = useSession();
-    const user = session?.user;
+  const { data: session, status } = useSession();
+  const user = session?.user;
   return (
     <div>
       <div className="relative user-dropdown">

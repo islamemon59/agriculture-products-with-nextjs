@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { NextResponse } from "next/server";
 import { collectionObj, dbConnect } from "@/lib/dbConnect";
+import { revalidatePath } from "next/cache";
 
 export async function GET(req) {
   try {
@@ -22,6 +23,7 @@ export async function GET(req) {
     console.log("user email", userEmail);
     const filteredCart = cart.filter((item) => item.email === userEmail);
 
+    revalidatePath("/")
     return NextResponse.json(filteredCart, { status: 200 });
   } catch (error) {
     console.error("GET /api/cart error:", error);
